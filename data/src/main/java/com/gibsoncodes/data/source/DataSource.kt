@@ -1,0 +1,299 @@
+package com.gibsoncodes.data.source
+
+import android.app.usage.StorageStatsManager
+import android.content.ContentResolver
+import android.content.ContentUris
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.os.StatFs
+import android.os.storage.StorageManager
+import android.provider.MediaStore
+import android.text.format.Formatter
+import androidx.core.net.toUri
+import com.gibsoncodes.domain.models.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.absoluteValue
+
+/**
+ * Class contains all the meat/methods used to load data needed by the app
+ */
+class DataSource (private val context:Context){
+    /**
+     * Get the storage volume of the device
+     * total storage + usedUp storage
+     * StorageManager is only available in Oreo and above thus
+     * we have to use [StatFs] for android O>
+     */
+    @Suppress("DEPRECATION")
+    suspend fun loadStorageStats(): StorageStatistics? = withContext(Dispatchers.IO){
+        var storageStatistics: StorageStatistics?=null
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+            val storageManager = context.getSystemService(Context.STORAGE_SERVICE) as StorageManager
+            val storageStatsManager =
+                context.getSystemService(Context.STORAGE_STATS_SERVICE) as StorageStatsManager
+            val storageVolumes = storageManager.storageVolumes
+            storageVolumes.forEach {
+                val uuidString =  it.uuid
+               val uuid = if (uuidString==null){
+                   StorageManager.UUID_DEFAULT
+               }else UUID.fromString(uuidString)
+                val totalMemory = storageStatsManager.getTotalBytes(uuid)
+                val freeMemory = storageStatsManager.getFreeBytes(uuid)
+                val usedMemory = totalMemory-freeMemory
+                storageStatistics=
+                    StorageStatistics(
+                        usedUpStorage = Formatter.formatShortFileSize(
+                            context,
+                            usedMemory
+                        ), totalStorage = Formatter.formatShortFileSize(context, freeMemory)
+                    )
+            }
+
+        }else{
+          val statFs by lazy {
+              val rootPath = Environment.getExternalStorageDirectory().absolutePath
+              StatFs(rootPath)
+          }
+            val blockCount  by lazy{
+                statFs.availableBlocksLong
+            }
+            val blockSize by lazy {
+                statFs.blockSizeLong
+            }
+            val availableBlocks by lazy{
+                statFs.availableBlocksLong
+            }
+            val totalMemory = (blockCount*blockSize).absoluteValue
+            val freeMemory = (blockSize*availableBlocks).absoluteValue
+            val usedUpMemory = (totalMemory-freeMemory).absoluteValue
+            storageStatistics= StorageStatistics(
+                usedUpStorage = Formatter.formatShortFileSize(
+                    context,
+                    usedUpMemory
+                ), totalStorage = Formatter.formatShortFileSize(context, totalMemory)
+            )
+
+        }
+        return@withContext storageStatistics
+    }
+
+/**
+ * Loads the videos present in the user's phone
+ */
+suspend fun loadVideosMedia(): List<Videos> = withContext(Dispatchers.IO) {
+    val videosList = mutableListOf<Videos>()
+    val projections = arrayOf(
+        MediaStore.Video.Media._ID,
+        MediaStore.Video.Media.DISPLAY_NAME,
+        MediaStore.Video.Media.SIZE,
+        MediaStore.Video.Media.DATE_ADDED
+    )
+    val sortOrder = "${MediaStore.Video.Media.DISPLAY_NAME} ASC"
+    val query = context.contentResolver.query(
+        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+        projections, null, null, sortOrder
+    )
+    query?.use { cursor ->
+        val id = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
+        val name = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
+        val size = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)
+        val dateAdded = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_ADDED)
+        while (cursor.moveToNext()) {
+            val videoId = cursor.getLong(id)
+            val videoName = cursor.getString(name)
+            val videoSize = cursor.getInt(size)
+            val videoDateAdded = Date(cursor.getLong(dateAdded))
+            val contentUri = ContentUris.withAppendedId(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                videoId
+            )
+            videosList.plusAssign(
+                Videos(
+                    videoId,
+                    videoName, videoSize, contentUri, videoDateAdded, createThumbnail(
+                        context.contentResolver,
+                        contentUri
+                    )
+                )
+            )
+        }
+    }
+    return@withContext videosList
+}
+
+/**
+ * Loads the images present in the user's phone
+ */
+suspend fun loadImagesFromDisc():List<Images> = withContext(Dispatchers.IO){
+    val imagesList = ArrayList<Images> ()
+    val projections = arrayOf(MediaStore.Images.Media._ID,
+        MediaStore.Images.Media.TITLE,
+        MediaStore.Images.Media.SIZE,
+        MediaStore.Images.Media.DATE_ADDED)
+    val sortOrder = "${MediaStore.Images.Media.DATE_ADDED} ASC"
+    val query = context.contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+    projections, null, null, sortOrder)
+    query?.use{
+         val id= it.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+        val name = it.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)
+        val size = it.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE)
+        val dateAdded = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED)
+        while(it.moveToNext()){
+            val imageId = it.getLong(id)
+            val imageName = it.getString(name)
+            val imageSize = it.getInt(size)
+            val imageAdded = Date(it.getLong(dateAdded))
+            val contentUri =ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            imageId)
+            val imageModel = Images(
+                imageId = imageId, imageName = imageName, imageSize = imageSize,
+                contentUri = contentUri, dateAdded = imageAdded
+            )
+            imagesList.plusAssign(imageModel)
+        }
+        }
+    return@withContext imagesList.toList()
+}
+
+/**
+ * Loads files present in the downloads folder
+ * However, since the downloads table was introduced in Android Q and above
+ * we need to walk(iterate recursively) the download folder via the (deprecated in Android Q< ) [Environment.getExternalStoragePublicDirectory] in order
+ * to get all the files present in the downloads folder
+ */
+@Suppress("DEPRECATION")
+suspend fun loadDownloadFilesFromDisc():List<Downloads> = withContext(Dispatchers.IO){
+    val downloadFilesList = ArrayList<Downloads> ()
+    if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){
+        val projections = arrayOf(MediaStore.Downloads._ID,
+            MediaStore.DownloadColumns.TITLE,
+            MediaStore.DownloadColumns.SIZE,
+            MediaStore.DownloadColumns.MIME_TYPE,
+            MediaStore.DownloadColumns.DATE_ADDED)
+        val sortOrder = "${MediaStore.Downloads.DATE_ADDED} ASC"
+        val query = context.contentResolver.query(MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+        projections, null, null, sortOrder)
+        query?.use{
+            val id = it.getColumnIndexOrThrow(MediaStore.DownloadColumns._ID)
+            val name = it.getColumnIndexOrThrow(MediaStore.DownloadColumns.TITLE)
+            val mimeType = it.getColumnIndexOrThrow(MediaStore.DownloadColumns.MIME_TYPE)
+            val dateAdded = it.getColumnIndexOrThrow(MediaStore.DownloadColumns.DATE_ADDED)
+            val size = it.getColumnIndexOrThrow(MediaStore.DownloadColumns.SIZE)
+            while(it.moveToNext()){
+                val downloadFileId = it.getLong(id)
+                val downloadFileName = it.getString(name)
+                val downloadFileType=it.getString(mimeType)
+                val downloadFileAdded = Date(it.getLong(dateAdded))
+                val downloadFileSize = it.getInt(size)
+                val contentUri = ContentUris.withAppendedId(MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                downloadFileId)
+
+                val downloadFile = Downloads(
+                    fileName = downloadFileName, fileSize = downloadFileSize,
+                    fileExtension = downloadFileType, bitmap = createThumbnail(
+                        context.contentResolver,
+                        contentUri
+                    ), dateAdded = downloadFileAdded,
+                    uri = contentUri
+                )
+                downloadFilesList.plusAssign(downloadFile)
+            }
+        }
+    }else{
+        val downloadsFilePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val downloadFilesTree = File(downloadsFilePath.toString()).walk()
+        downloadFilesTree.maxDepth(2)
+            .filter { it.isFile }
+            .forEach {
+                val downloadFile = Downloads(
+                    fileName =
+                    it.name, fileSize = it.length().toInt(),
+                    fileExtension = it.extension, dateAdded =
+                    Date(it.lastModified()), uri = it.toUri(), bitmap = null
+                )
+                downloadFilesList.plusAssign(downloadFile)
+                downloadFilesList.sortedBy { it.dateAdded }
+            }
+    }
+    return@withContext downloadFilesList
+}
+
+/**
+ * Loads the image files from disk
+ */
+suspend fun loadAudioFilesFromDisc():List<Audios> = withContext(Dispatchers.IO){
+val audioFilesList = mutableListOf<Audios>()
+val projections = arrayOf(MediaStore.Audio.Media._ID,
+    MediaStore.Audio.Media.TITLE,
+    MediaStore.Audio.Media.SIZE,
+    MediaStore.Audio.Media.DATE_ADDED
+)
+val sortOrder = "${MediaStore.Audio.Media.DATE_ADDED} ASC"
+val query = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projections,null, null,
+ sortOrder)
+query?.use{
+    cursor->
+    val id = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
+    val name = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
+    val size = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE)
+    val dateAdded = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATE_MODIFIED)
+    while (cursor.moveToNext()) {
+        val audioId = cursor.getLong(id)
+        val audioName = cursor.getString(name)
+        val audioSize = cursor.getInt(size)
+        val audioDateAdded = Date(cursor.getLong(dateAdded))
+        val contentUri = ContentUris.withAppendedId(
+            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            audioId
+        )
+        val audioModel = Audios(
+            id = audioId,
+            name = audioName,
+            size = audioSize,
+            uri = contentUri,
+            dateAdded = audioDateAdded,
+            thumbnail = createThumbnail(context.contentResolver, contentUri)
+        )
+        audioFilesList.add(audioModel)
+    }
+    }
+return@withContext audioFilesList
+
+}
+
+/**
+ * Creates an thumbnail from the uri of the file given
+ * Note:This might actually fail to produce any bitmap/thumbnail since
+ * it all depends on the file
+ */
+private fun createThumbnail(resolver:ContentResolver, uri:Uri):Bitmap? {
+    var bitmap: Bitmap? =null
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val source = ImageDecoder.createSource(
+            resolver,
+            uri
+        )
+        bitmap = ImageDecoder.decodeBitmap(source)
+        return bitmap
+    }
+    return bitmap
+}
+/*viewModel.downloadData.observe(this, Observer {
+    /*var count =0
+    it.forEach { file->
+        count +=file.fileSize
+    }
+    val size=Formatter.formatFileSize(this, count.toLong())
+    countTextView.text = "the size is: $size"*/
+   // textView.text =it.joinToString (limit = 5)
+
+})*/
+}
