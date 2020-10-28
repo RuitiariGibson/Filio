@@ -7,8 +7,48 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-<style name="RoundImageStyle." parent="">
-    <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">15%</item>
-</style>
+    <style name="ShapeAppearanceOverlay.CardView" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="cornerSizeBottomLeft">37%</item>
+        <item name="cornerSizeBottomRight">31%</item>
+        <item name="cornerSizeTopRight">40%</item>
+        <item name="cornerSizeTopLeft">45%</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.CardView2" parent="">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">0%</item>
+        <item name="cornerSizeTopLeft">65%</item>
+    </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">10%</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomLeft">10%</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomRight">10%</item>
+        <item name="cornerSizeTopLeft">10%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.main" parent="">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeTopRight">70dp</item>
+        <item name="cornerSizeBottomLeft">75dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.CardView3" parent="">
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomRight">50%</item>
+        <item name="cornerSizeBottomLeft">0%</item>
+    </style>
+
 </resources>

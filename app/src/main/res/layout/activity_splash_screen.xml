@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".features.activities.LauncherActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="100dp"
+            app:cardBackgroundColor="#1DB39191"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView"
+            app:strokeWidth="0dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/firstText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="130dp"
+            android:drawableEnd="@drawable/folder"
+            android:drawablePadding="10dp"
+            android:text="@string/file"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:fontFamily="sans"
+            tools:ignore="RelativeOverlap"
+            tools:text="File" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/secondText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="170dp"
+            android:text="@string/manager"
+            android:textColor="@android:color/white"
+            android:textSize="35sp"
+            tools:text="Manager" />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/generic_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:src="@drawable/generic_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="130dp"
+        android:src="@drawable/generic_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="260dp"
+        android:src="@drawable/second_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/generic_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/third_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/third_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/third_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="12dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/second_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/second_circle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="240dp"
+        android:text="@string/manage_files"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="18sp"
+        tools:text="MANAGE YOUR FILES"
+        tools:ignore="RelativeOverlap" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="160dp"
+        android:ems="19"
+        android:maxEms="25"
+        android:text="@string/app_sell"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        tools:text="It's a simple option that doesn't have a whole lot of flair. That is extremely preferable" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="10dp"
+            android:clickable="false"
+            android:src="@drawable/forth_circle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="@color/forthCircleColor"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            app:cornerRadius="100dp"
+            app:elevation="8dp"
+            app:icon="@drawable/forward_arrow"
+            app:iconPadding="10dp" />
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lastText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="35dp"
+        android:text="@string/lets"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="Let's make the" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/lastText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="115dp"
+        android:layout_marginBottom="35dp"
+        android:text="@string/magic"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="magic happen" />
+</RelativeLayout>

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E3001A</color>E3001A
-    <color name="colorPrimaryDark">#000119</color>
-    <color name="colorAccent">#FFD032</color>
+    <color name="colorPrimary">#000119</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#2a2d3f</color>
+    <color name="textColor">#ffffff</color>
+    <color name="buttonGlow">#ff5443</color>
+    <color name="muteButtonGlow">#59E3001A</color>
+    <color name="secondaryButtonColor">#e3001A</color>
+    <color name="secondaryTextColor">#ffd032</color>
+    <color name="forthCircleColor">#E3001A</color>
+    <color name="white_12">#fafafa</color>
+    <color name="white_56">#8effffff</color>
+    <color name="white_70">#b2ffffff</color>
+    <color name="white_87">#ddffffff</color>
+    <color name="white_93">#edf8f8f8</color>
 </resources>

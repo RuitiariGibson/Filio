@@ -2,4 +2,12 @@
     <string name="app_name">Filio</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_sell">It\'s a simple option that doesn\'t have a whole lot of flair. That is extremely preferable</string>
+    <string name="manage_files">MANAGE YOUR FILES</string>
+    <string name="lets">Let\'s make the</string>
+    <string name="magic">magic happen</string>
+    <string name="clean">Let\'s clean and</string>
+    <string name="manage_your">manage your file\'s </string>
+    <string name="manager">MANAGER</string>
+    <string name="file">FILE</string>
 </resources>
