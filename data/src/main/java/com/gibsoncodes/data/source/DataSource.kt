@@ -257,7 +257,7 @@ query?.use{
     val id = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
     val name = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
     val size = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE)
-    val dateAdded = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATE_MODIFIED)
+    val dateAdded = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATE_ADDED)
     while (cursor.moveToNext()) {
         val audioId = cursor.getLong(id)
         val audioName = cursor.getString(name)

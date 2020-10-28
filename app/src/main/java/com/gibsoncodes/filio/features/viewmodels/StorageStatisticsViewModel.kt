@@ -11,22 +11,23 @@ import com.gibsoncodes.filio.models.StorageStatisticsModel
 import kotlinx.coroutines.launch
 
 class StorageStatisticsViewModel(private val storageProperties:StatisticsProperty):ViewModel() {
+    init {
+        loadStorageStatistics()
+    }
     private val storageStatistics by lazy{
-        MutableLiveData<StorageStatisticsModel> ().also {
-            val data = loadStorageStatistics()
-            it.postValue(data)
-        }
+        MutableLiveData<StorageStatisticsModel> ()
     }
     val liveData:LiveData<StorageStatisticsModel> get() = storageStatistics
-    private fun loadStorageStatistics():StorageStatisticsModel?{
-        var storageStatisticsModel:StorageStatisticsModel?=null
+    private fun loadStorageStatistics(){
         viewModelScope.launch {
-            storageProperties.invoke().let {
-                storageStatisticsModel=it?.toStorageStatisticsModel()
-            }
+            var storageStatisticsModel:StorageStatisticsModel?=null
 
+            storageProperties.invoke()?.let {
+                storageStatisticsModel=it.toStorageStatisticsModel()
+            }
+         storageStatistics.postValue(storageStatisticsModel)
         }
-    return storageStatisticsModel
+
     }
 
 }

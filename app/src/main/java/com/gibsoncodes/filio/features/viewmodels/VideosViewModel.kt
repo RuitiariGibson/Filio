@@ -12,17 +12,18 @@ import kotlinx.coroutines.launch
 
 class VideosViewModel(application: Application, private val videosProperties: VideosProperties):BaseViewModel(application) {
     private val videosList by lazy {
-        MutableLiveData<List<VideosModel>>().also {
-            val videosData = loadVideos()
-            it.postValue(videosData)
-        }
+        MutableLiveData<List<VideosModel>>()
+    }
+    init {
+        loadVideos()
     }
     val videosLiveData: LiveData<List<VideosModel>> get() = videosList
-    private fun loadVideos(): List<VideosModel> {
+    private fun loadVideos() {
         val list = mutableListOf<VideosModel>()
         viewModelScope.launch {
             val repoList = videosProperties.invoke()
             list.addAll(repoList.map { it.toVideosModel() })
+            videosList.postValue(list)
             if (contentObserver == null) {
                 contentObserver =
                     getApplication<Application>().contentResolver.registerContentObserver(
@@ -32,7 +33,6 @@ class VideosViewModel(application: Application, private val videosProperties: Vi
                     }
             }
         }
-        return list
     }
 
 }

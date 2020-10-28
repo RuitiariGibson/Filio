@@ -3,13 +3,16 @@ package com.gibsoncodes.filio.features.activities
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.text.format.Formatter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.gibsoncodes.filio.R
+import com.gibsoncodes.filio.features.viewmodels.FileSizesViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,26 +22,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*viewModel.downloadData.observe(this, Observer {
-            /*var count =0
-            it.forEach { file->
-                count +=file.fileSize
-            }
-            val size=Formatter.formatFileSize(this, count.toLong())
-            countTextView.text = "the size is: $size"*/
-           // textView.text =it.joinToString (limit = 5)
-
+        val viewModel:FileSizesViewModel by viewModel()
+        viewModel.fileSizeLiveData.observe(this, Observer {
+            //  it.joinToString(prefix = "[", postfix = "]")
+          val string_= Formatter.formatFileSize(this@MainActivity, it[3].categorySize.toLong())
+            testText.text = "${it[3].categoryName} is $string_"
         })
-          viewModel.loadStorageStats()
-        viewModel.usedUp.observe(this, Observer {
-            used.text = it
-        })
-        viewModel.totalMemory.observe(this, Observer {
-            total.text = it
-        })*/
       //  if (havePermission()){
         //    used.text = "We have permission "
-        //}else {
+        //}else { download is 0.97 gb
           //  requestPermission()
         // }
 

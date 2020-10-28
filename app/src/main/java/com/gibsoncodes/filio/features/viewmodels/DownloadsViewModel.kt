@@ -19,22 +19,23 @@ class DownloadsViewModel(application: Application,
 
     private val downloadFilesList by lazy{
         MutableLiveData<List<DownloadsModel>> ()
-            .also {
-               val list= loadDownloadFiles()
-               list.map {
-                   model->
-                  if (model.bitmap==null){
-                      model.bitmap=getApplication<Application>().loadThumbnail(model.fileExtension)
-                  }
-               }
-                it.postValue(list)
-            }
+
+    }
+    init {
+        loadDownloadFiles()
     }
     val downloadFilesLiveData:LiveData<List<DownloadsModel>> get() = downloadFilesList
   private  fun loadDownloadFiles():List<DownloadsModel> {
       val returnList = mutableListOf<DownloadsModel>()
       viewModelScope.launch {
           returnList.addAll(downloadsProperty.invoke().map { it.toDownloadsModel() })
+          returnList.map{
+                  model->
+              if (model.bitmap==null){
+                  model.bitmap=getApplication<Application>().loadThumbnail(model.fileExtension)
+              }
+          }
+          downloadFilesList.postValue(returnList)
           if (contentObserver == null) {
               contentObserver =
                   getApplication<Application>().contentResolver.registerContentObserver(

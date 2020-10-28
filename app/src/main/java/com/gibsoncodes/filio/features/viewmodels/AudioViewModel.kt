@@ -15,22 +15,23 @@ class AudioViewModel(application: Application,
 private val properties:AudiosProperties):BaseViewModel(application) {
 
     private val audiosLiveData  by lazy{
-        MutableLiveData<List<AudiosModel>> ().also {
-            val audioData = loadAudios()
-            audioData.map {
-                audio->
-                if (audio.thumbnail==null){
-                    audio.thumbnail = getApplication<Application>().loadThumbnail("mp3")
-                }
-            }
-            it.postValue(audioData)
-        }
+        MutableLiveData<List<AudiosModel>> ()
+    }
+    init {
+        loadAudios()
     }
     val audioData:LiveData<List<AudiosModel>> get() = audiosLiveData
     private fun loadAudios():List<AudiosModel>{
         val list = mutableListOf<AudiosModel>()
         viewModelScope.launch {
             list.addAll(properties.invoke().map { it.toAudiosModel() })
+            list.map {
+                    audio->
+                if (audio.thumbnail==null){
+                    audio.thumbnail = getApplication<Application>().loadThumbnail("mp3")
+                }
+            }
+            audiosLiveData.postValue(list)
             if (contentObserver == null) {
                 contentObserver = getApplication<Application>().contentResolver.registerContentObserver(
                         MediaStore.Audio.Media.EXTERNAL_CONTENT_URI

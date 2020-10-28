@@ -11,18 +11,20 @@ import com.gibsoncodes.filio.models.ImagesModel
 import kotlinx.coroutines.launch
 
 class ImagesViewModel(application: Application, private val imagesProperties: ImagesProperties):BaseViewModel(application) {
-private val imagesList by lazy {
-    MutableLiveData<List<ImagesModel>> ().also {
-        val imagesData = loadImages()
-        it.postValue(imagesData)
+    init{
+        loadImages()
     }
+private val imagesList by lazy {
+    MutableLiveData<List<ImagesModel>> ()
 }
     val imagesLiveData:LiveData<List<ImagesModel>> get() = imagesList
-   private  fun loadImages():List<ImagesModel> {
+   private  fun loadImages(){
        val list = mutableListOf<ImagesModel>()
         viewModelScope.launch {
             val repoList=imagesProperties.invoke()
             list.addAll(repoList.map { it.toImagesModel() })
+            imagesList
+                .postValue(list)
             if (contentObserver == null) {
                 contentObserver =
                     getApplication<Application>().contentResolver.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -31,6 +33,6 @@ private val imagesList by lazy {
                     }
             }
         }
-       return list
+
     }
 }
