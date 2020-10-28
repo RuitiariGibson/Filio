@@ -15,3 +15,6 @@ fun StorageStatistics.toStorageStatisticsModel():StorageStatisticsModel =
     StorageStatisticsModel(this.usedUpStorage,this.totalStorage)
 fun Downloads.toDownloadsModel(): DownloadsModel= DownloadsModel(this.fileName,
 this.fileSize,this.fileExtension,this.bitmap,this.dateAdded, this.uri)
+
+fun TotalFileSizes.toFileSizeModel():FileSizesModel = FileSizesModel(this.audiosSize,
+this.videosSize,this.downloadsFileSize, this.imagesFileSize)

@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context=".features.activities.MainActivity">
+<layout>
+    <data/>
 
-<androidx.appcompat.widget.AppCompatTextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:gravity="center"
-    tools:text="Hello"
-    android:layout_gravity="center"
-    android:id="@+id/total"/>
-    <androidx.appcompat.widget.AppCompatTextView
+ <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainScreenCord"
+        android:background="@android:color/white"
+        tools:context=".features.activities.MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:gravity="center"
-        tools:text="Hello"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:id="@+id/used"/>
+        android:id="@+id/permissionRationale"
+        android:orientation="vertical"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            tools:src="@drawable/lack_permission_wave" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:ems="15"
+            android:id="@+id/testText"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="Nothing yet? Don't fret :-) The application requires permission to access your storage in order to function" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:foregroundGravity="center"
+            tools:text="Grant Permission"
+            android:id="@+id/grantPermissionButton"
+            app:cornerRadius="8dp"
+            app:elevation="5dp" />
+    </LinearLayout>
 
 
 <com.gibsoncodes.filio.commons.BottomNavigationIndicator
@@ -37,4 +61,5 @@
     android:background="@android:color/white"
     app:labelVisibilityMode="unlabeled" />
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

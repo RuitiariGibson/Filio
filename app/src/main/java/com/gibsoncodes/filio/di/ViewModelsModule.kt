@@ -22,3 +22,6 @@ val videosViewModelModule = module{
 val storageStatisticsViewModelModule = module{
     viewModel { StorageStatisticsViewModel(get(named("stats"))) }
 }
+val fileSizeViewModelModule = module{
+    viewModel { FileSizesViewModel(get(named("fileSize"))) }
+}

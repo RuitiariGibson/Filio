@@ -27,6 +27,19 @@ import kotlin.math.absoluteValue
  */
 class DataSource (private val context:Context){
     /**
+     * Provides a sum of all the files per category i.e
+     * audio, images, downloads etc
+     */
+    suspend fun loadFileSizes():TotalFileSizes= withContext(Dispatchers.IO){
+        val audiosSize= loadAudioFilesFromDisc().sumBy { it.size!! }
+        val videosList = loadVideosMedia().sumBy { it.size!! }
+        val imagesList = loadImagesFromDisc().sumBy {it.imageSize  }
+        val downloadFilesList = loadDownloadFilesFromDisc().sumBy { it.fileSize }
+        return@withContext TotalFileSizes(downloadsFileSize = downloadFilesList,
+        imagesFileSize = imagesList,audiosSize = audiosSize,
+        videosSize = videosList)
+    }
+    /**
      * Get the storage volume of the device
      * total storage + usedUp storage
      * StorageManager is only available in Oreo and above thus
@@ -286,14 +299,5 @@ private fun createThumbnail(resolver:ContentResolver, uri:Uri):Bitmap? {
     }
     return bitmap
 }
-/*viewModel.downloadData.observe(this, Observer {
-    /*var count =0
-    it.forEach { file->
-        count +=file.fileSize
-    }
-    val size=Formatter.formatFileSize(this, count.toLong())
-    countTextView.text = "the size is: $size"*/
-   // textView.text =it.joinToString (limit = 5)
 
-})*/
 }

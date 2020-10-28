@@ -1,7 +1,6 @@
 package com.gibsoncodes.filio
 
 import android.app.Application
-import com.gibsoncodes.domain.di.*
 import com.gibsoncodes.filio.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -11,10 +10,17 @@ class App:Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(listOf(propertiesModule,
-            mediaFilesRepoModule, documentFilesModule, storageStatisticsModule,
-            sourceModule, imagesViewModelModule, videosViewModelModule,
-           audiosViewModelModule, storageStatisticsModule, downloadViewModelModule, storageStatisticsViewModelModule ))
+            modules(listOf(
+                com.gibsoncodes.di.modules.propertiesModule,
+                com.gibsoncodes.di.modules.mediaFilesRepoModule,
+                com.gibsoncodes.di.modules.documentFilesModule,
+                com.gibsoncodes.di.modules.storageStatisticsModule,
+                com.gibsoncodes.di.modules.sourceModule, imagesViewModelModule, videosViewModelModule,
+           audiosViewModelModule,
+                com.gibsoncodes.di.modules.storageStatisticsModule, downloadViewModelModule,
+                storageStatisticsViewModelModule ,
+                com.gibsoncodes.di.modules.totalFileSizesModule, fileSizeViewModelModule
+            ))
         }
     }
 }

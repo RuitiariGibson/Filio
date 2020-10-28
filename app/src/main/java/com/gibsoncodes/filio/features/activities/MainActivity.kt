@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.totalMemory.observe(this, Observer {
             total.text = it
         })*/
-        if (havePermission()){
-            used.text = "We have permission "
-        }else {
-            requestPermission()
-        }
+      //  if (havePermission()){
+        //    used.text = "We have permission "
+        //}else {
+          //  requestPermission()
+        // }
 
 
     }
