@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/bottom_navigation_home" android:enabled="true"
-        android:icon="@drawable/ic_home" android:title="Home"
+        android:icon="@drawable/folder_icon" android:title="@string/home"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/about" android:enabled="true"
+        android:icon="@drawable/ic_add" android:title="@string/stats"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/bottom_navigation_stats" android:enabled="true"
+        android:icon="@drawable/ic_add" android:title="@string/stats"
         app:showAsAction="ifRoom" />
 
 
-
-    <item android:id="@+id/bottom_navigation_add" android:enabled="true"
-        android:icon="@drawable/ic_add" android:title="Add"
-        app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/bottom_navigation_history" android:enabled="true"
-        android:icon="@drawable/ic_history" android:title="History"
-        app:showAsAction="ifRoom" />
 
 
 

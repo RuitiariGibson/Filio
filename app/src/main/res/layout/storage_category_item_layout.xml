@@ -1,0 +1,69 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+<variable
+    name="storageCategory"
+    type="com.gibsoncodes.filio.models.CategoriesModel" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="300dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:foregroundGravity="center"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp"
+        android:background="@android:color/white"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:elevation="4dp"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="60dp"
+                    android:background="@color/secondaryTextColor"
+                    android:layout_height="match_parent">
+                </View>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/folder_img"
+                    android:layout_width="30dp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    tools:src="@drawable/audio_folder_icon" />
+            </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:id="@+id/folder_name"
+                android:layout_marginTop="7dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                tools:text="Music" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/folder_items_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            tools:text="Files: 75" />
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

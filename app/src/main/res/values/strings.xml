@@ -10,4 +10,6 @@
     <string name="manage_your">manage your file\'s </string>
     <string name="manager">MANAGER</string>
     <string name="file">FILE</string>
+    <string name="stats">Stats</string>
+    <string name="home">Home</string>
 </resources>

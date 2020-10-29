@@ -17,6 +17,8 @@ class FileSizesViewModel(private val fileSizeProperties: FileSizeProperties):Vie
     private val mutableLiveData by lazy{
         MutableLiveData<List<CategoriesModel>>()
     }
+
+
     val fileSizeLiveData:LiveData<List<CategoriesModel>> get() = mutableLiveData
     private fun loadFileSize(){
         val category = mutableListOf<CategoriesModel>()

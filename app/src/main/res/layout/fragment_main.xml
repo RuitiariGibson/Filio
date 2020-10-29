@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+<data>
+    <variable
+        name="adapter"
+        type="com.gibsoncodes.filio.adapters.CategoriesAdapter" />
+    <variable
+        name="storageStatistics"
+        type="com.gibsoncodes.filio.features.viewmodels.StorageStatisticsViewModel" />
+    <variable
+        name="viewModel"
+        type="com.gibsoncodes.filio.features.viewmodels.FileSizesViewModel" />
+</data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.fragments.MainFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.fragments.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/my_storage"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:text="My storage" />
+
+    <LinearLayout
+        android:id="@+id/first_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_storage"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <com.gibsoncodes.filio.commons.CircleProgressBar
+        android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            app:storageStatistics="@{storageStatistics.liveData}"
+            app:progressBarThickness="5dp"
+            app:progressbarColor="@color/secondaryTextColor" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:ems="5"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:storageStatus="@{storageStatistics.liveData}"
+            tools:text="Total used 89GB/120GB" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:layout_marginStart="10dp"
+            android:ems="3"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="20sp"
+            app:itemsTotal="@{viewModel.fileSizeLiveData}"
+            android:textStyle="bold"
+            tools:text="890 items" />
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@id/first_layout"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.main">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            tools:text="CATEGORIES"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_marginTop="35dp"
+            app:storageCategoryAdapter="@{adapter}"
+            app:storageCategoryList="@{viewModel.fileSizeLiveData}"
+            tools:listitem="@layout/storage_category_item_layout"
+            android:id="@+id/storageCategoriesRv"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>
+    </layout>

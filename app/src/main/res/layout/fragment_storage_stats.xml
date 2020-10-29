@@ -2,7 +2,9 @@
 <layout>
     <data>
 
-
+        <variable
+            name="storageStatistics"
+            type="com.gibsoncodes.filio.features.viewmodels.StorageStatisticsViewModel" />
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -114,8 +116,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 app:progressBarThickness="25dp"
-                app:max="100"
-                app:progress="80"
+                app:storageStatistics="@{storageStatistics.liveData}"
                 app:progressbarColor="@android:color/white"
                 android:layout_height="200dp"/>
             <androidx.appcompat.widget.AppCompatTextView

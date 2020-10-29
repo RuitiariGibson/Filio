@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragments:Fragment() {
 
-    inline fun<reified T:ViewDataBinding> bindFragment(parent:ViewGroup, inflater:LayoutInflater,
+    inline fun<reified T:ViewDataBinding> bindFragment(parent:ViewGroup?, inflater:LayoutInflater,
                                                        @LayoutRes layoutId:Int,
     attachToRoot:Boolean)
      :T =
