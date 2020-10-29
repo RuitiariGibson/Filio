@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.fragments.AboutFragment">
+
+  <androidx.appcompat.widget.AppCompatImageView
+      android:layout_width="80dp"
+      android:src="@drawable/folder_icon"
+      android:layout_centerHorizontal="true"
+      android:id="@+id/icon"
+      android:layout_marginTop="100dp"
+      android:layout_height="80dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/versionText"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/icon"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/version"/>
+<androidx.appcompat.widget.AppCompatTextView
+    android:layout_width="match_parent"
+    android:text="@string/about_text"
+    android:layout_below="@id/versionText"
+    android:layout_margin="15dp"
+    android:ems="8"
+    android:gravity="center"
+    android:textColor="@color/colorPrimary"
+    android:id="@+id/aboutText"
+    android:textSize="18sp"
+    android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:text="@string/about_author"
+            android:layout_below="@id/aboutText"
+            android:layout_margin="20dp"
+            android:ems="6"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/aoutAuthorText"
+            android:textSize="17sp"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>
+
+</layout>

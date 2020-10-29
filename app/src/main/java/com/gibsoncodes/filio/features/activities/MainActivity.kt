@@ -1,38 +1,47 @@
 package com.gibsoncodes.filio.features.activities
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.format.Formatter
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.gibsoncodes.filio.R
-import com.gibsoncodes.filio.features.viewmodels.FileSizesViewModel
+import com.gibsoncodes.filio.commons.AnimatorListener
+import com.gibsoncodes.filio.databinding.ActivityMainBinding
+import com.gibsoncodes.filio.features.fragments.AboutFragment
+import com.gibsoncodes.filio.features.fragments.MainFragment
+import com.gibsoncodes.filio.features.fragments.StorageStatsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private val readStorageRequestCode = 0x100
-    @SuppressLint("SetTextI18n")
+    private val mainFragment = MainFragment()
+   private val statisticsFragment = StorageStatsFragment()
+    private val aboutFragment = AboutFragment()
+    private var activeFragment:Fragment? = mainFragment
+    private val fragManager = supportFragmentManager
+    private val binding:ActivityMainBinding by bind(R.layout.activity_main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val viewModel:FileSizesViewModel by viewModel()
-        viewModel.fileSizeLiveData.observe(this, Observer {
-            //  it.joinToString(prefix = "[", postfix = "]")
-          val string_= Formatter.formatFileSize(this@MainActivity, it[3].categorySize.toLong())
-            testText.text = "${it[3].categoryName} is $string_"
-        })
-      //  if (havePermission()){
-        //    used.text = "We have permission "
-        //}else { download is 0.97 gb
-          //  requestPermission()
-        // }
+        if (havePermission()){
+                doInitialFragmentTransaction()
+            binding.bottomNavigationView.wireUpListener()
+        }else{
+         binding.permissionRationale.animate()
+             .alpha(1f)
+             .setDuration(80L)
+             .setListener(AnimatorListener{
+                 binding.permissionRationale.visibility=View.VISIBLE
+                 binding.fragmentContainer.visibility=View.INVISIBLE
+             })
+            binding.grantPermissionButton.setOnClickListener {
+                requestPermission()
+            }
+        }
 
 
     }
@@ -52,21 +61,87 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode==readStorageRequestCode && grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            // do the work
+           binding.permissionRationale.animate()
+               .alpha(0f)
+               .setDuration(80L)
+               .setListener(AnimatorListener{
+                   binding.permissionRationale.visibility=View.GONE
+                   binding.fragmentContainer.visibility=View.VISIBLE
+               })
         }else{
+            if (binding.fragmentContainer.visibility==View.VISIBLE)
+                binding.fragmentContainer.visibility=View.GONE
+
             if (shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)){
                 MaterialAlertDialogBuilder(this)
-                    .setTitle("Permission")
-                    .setMessage("We need to access read your storage in order for the app to function")
-                    .setPositiveButton("Grant"){p0,p1->
+                    .setTitle(getString(R.string.permission))
+                    .setMessage(getString(R.string.permission_rationale))
+                    .setPositiveButton(getString(R.string.grant)){p0,p1->
                         requestPermission()
-                    }.setNegativeButton("Cancel") {p0, p1->
+                    }.setNegativeButton(getString(R.string.deny)) {p0, p1->
+                        binding.fragmentContainer.visibility=View.GONE
+                        binding.permissionRationale.visibility=View.VISIBLE
                         p0.dismiss()
                     }
                     .show()
             }else{
                 return
             }
+        }
+    }
+private fun BottomNavigationView.wireUpListener(){
+    this.setOnNavigationItemSelectedListener {
+        when(it.itemId){
+            R.id.bottom_navigation_home->{
+                fragManager.beginTransaction()
+                    .hide(activeFragment!!)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .show(mainFragment)
+                    .commit()
+                activeFragment=mainFragment
+                true
+            }
+            R.id.bottom_navigation_stats->{
+                fragManager.beginTransaction()
+                    .hide(activeFragment!!)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .show(statisticsFragment)
+                    .commit()
+                activeFragment = statisticsFragment
+                true
+            }
+            R.id.bottom_navigation_about->{
+                fragManager.beginTransaction()
+                    .hide(activeFragment!!)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .show(aboutFragment)
+                    .commit()
+                activeFragment=aboutFragment
+                true
+            }
+            else->false
+        }
+    }
+}
+    private fun doInitialFragmentTransaction(){
+        fragManager.beginTransaction().add(R.id.fragmentContainer,mainFragment,
+            getString(R.string.mainFragTag)).show(mainFragment).commit()
+        fragManager.beginTransaction().add(R.id.fragmentContainer,
+            statisticsFragment,getString(R.string.statisticsFragTag))
+            .hide(statisticsFragment)
+        fragManager.beginTransaction().add(R.id.fragmentContainer,
+            aboutFragment,getString(R.string.aboutFragTag)).hide(aboutFragment)
+    }
+    override fun onDestroy() {
+        if (activeFragment!=null && activeFragment!=mainFragment){
+            fragManager.beginTransaction()
+                .hide(activeFragment!!)
+                .show(mainFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+            activeFragment=mainFragment
+        }else{
+            super.onDestroy()
         }
     }
 }

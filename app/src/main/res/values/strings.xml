@@ -12,4 +12,16 @@
     <string name="file">FILE</string>
     <string name="stats">Stats</string>
     <string name="home">Home</string>
+    <string name="about">about</string>
+    <string name="version">version 1.0</string>
+    <string name="grant">Grant</string>
+    <string name="deny">Deny</string>
+    <string name="permission">Permission</string>
+    <string name="mainFragTag">MainFragment</string>
+    <string name="aboutFragTag">AboutFragment</string>
+    <string name="statisticsFragTag">StatisticsFragment</string>
+    <string name="about_author">Got questions regarding the app?Issues or compliments reach out via ruitiarigibson@students.uonbi.ac.ke *_*</string>
+    <string name="permission_rationale">The app needs permission read your storage in order for the app to function. ^_^</string>
+    <string name="about_text">Filio is a file manager app inspired by google files.The app is not in anyway affiliated with google.In addition, the app does not in any way sell or give your data to third parties.It is solely for educational purposes</string>
+
 </resources>

@@ -6,12 +6,12 @@
         android:icon="@drawable/folder_icon" android:title="@string/home"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/about" android:enabled="true"
-        android:icon="@drawable/ic_add" android:title="@string/stats"
+    <item android:id="@+id/bottom_navigation_about" android:enabled="true"
+        android:icon="@drawable/statistics_icon" android:title="@string/stats"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/bottom_navigation_stats" android:enabled="true"
-        android:icon="@drawable/ic_add" android:title="@string/stats"
+        android:icon="@drawable/about_icon" android:title="@string/about"
         app:showAsAction="ifRoom" />
 
 

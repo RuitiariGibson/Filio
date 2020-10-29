@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -125,8 +126,11 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="240dp"
         android:text="@string/manage_files"
+        android:id="@+id/manageYourFilesText"
         android:textColor="@color/secondaryTextColor"
         android:textSize="18sp"
+        android:visibility="gone"
+        tools:visibility="visible"
         tools:text="MANAGE YOUR FILES"
         tools:ignore="RelativeOverlap" />
 
@@ -138,6 +142,7 @@
         android:layout_marginBottom="160dp"
         android:ems="19"
         android:maxEms="25"
+        android:id="@+id/appSellText"
         android:text="@string/app_sell"
         android:textColor="@android:color/white"
         android:textSize="15sp"
@@ -147,6 +152,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:id="@+id/bottomLayout"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true">
 
@@ -156,6 +162,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="10dp"
             android:clickable="false"
+            android:id="@+id/glowingImageView"
             android:src="@drawable/forth_circle" />
 
         <com.google.android.material.button.MaterialButton
@@ -168,6 +175,7 @@
             android:shadowColor="@android:color/white"
             android:shadowDx="5"
             android:shadowDy="5"
+            android:id="@+id/proceedButton"
             android:shadowRadius="10"
             app:cornerRadius="100dp"
             app:elevation="8dp"
@@ -203,3 +211,4 @@
         android:textStyle="bold"
         tools:text="magic happen" />
 </RelativeLayout>
+</layout>

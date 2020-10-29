@@ -10,13 +10,17 @@
         android:id="@+id/mainScreenCord"
         android:background="@android:color/white"
         tools:context=".features.activities.MainActivity">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentContainer"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/permissionRationale"
         android:orientation="vertical"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -57,6 +61,7 @@
     app:elevation="9dp"
     android:layout_gravity="bottom"
     app:menu="@menu/bottom_navigation"
+    android:id="@+id/bottomNavigationView"
     app:itemIconTint="@color/colorPrimary"
     android:background="@android:color/white"
     app:labelVisibilityMode="unlabeled" />
