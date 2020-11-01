@@ -23,8 +23,8 @@ class RecentFilesViewModel(application: Application,private val  recentFilesProp
     private fun loadRecentFilesData(){
         viewModelScope.launch {
         val list = recentFilesProperties.invoke()
-            recentFilesLiveData.postValue(list.map { it.toRecentFilesModel() })
 
+            recentFilesLiveData.postValue(list.map { it.toRecentFilesModel() })
             if (contentObserver==null){
                 contentObserver = getApplication<Application>()
                     .contentResolver.registerContentObserver(MediaStore.Files.getContentUri("external"),

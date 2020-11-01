@@ -1,11 +1,13 @@
 package com.gibsoncodes.data.source
 
+import android.annotation.SuppressLint
 import android.app.usage.StorageStatsManager
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.icu.util.TimeUnit
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -13,11 +15,13 @@ import android.os.StatFs
 import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.text.format.Formatter
+import android.util.Log
 import androidx.core.net.toUri
 import com.gibsoncodes.domain.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.absoluteValue
@@ -44,7 +48,8 @@ class DataSource (private val context:Context){
          */
         // MediaStore.Files.getContentUri("external") get documents
         val selectionArgs = arrayOf(getDateWithinAPeriod().toString())
-        val selection ="${MediaStore.Files.FileColumns.DATE_ADDED} >= ? AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,6,1,3)"
+        // AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,6,1,3)
+        val selection ="${MediaStore.Files.FileColumns.DATE_ADDED} >= ? AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,6,1,3) "
         val sortOrder = "${MediaStore.Files.FileColumns.DATE_ADDED} DESC"
         val query = context.contentResolver
             .query(MediaStore.Files.getContentUri("external"),
@@ -66,19 +71,32 @@ class DataSource (private val context:Context){
                 fileId)
                 val recentFile = RecentFiles(fileId,name, size, uri, dateAdded,
                 fileMediaType)
+
                 recentFiles.plusAssign(recentFile)
             }
 
         }
+        Log.e("recent files list :" ,"${recentFiles.size}")
   return@withContext recentFiles
 
     }
+    @SuppressLint("SimpleDateFormat")
     private fun getDateWithinAPeriod():Long{
         val calendar = Calendar.getInstance()
-        val days = -7
+        val days = -3
         calendar.add(Calendar.DAY_OF_YEAR, days)
         val date = Date(calendar.timeInMillis)
-        return date.time
+        // Sun Oct 25 11:36:26 GMT+03:00 2020
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+
+       return simpleDateFormat.let{
+           val stringDate =it.format(date)
+           Log.e("tag",stringDate)
+           java.util.concurrent.TimeUnit.MICROSECONDS.toSeconds(it.parse(stringDate)?.time?:0)
+       }
+
+
+
     }
     /**
      * Provides a sum of all the files per category i.e

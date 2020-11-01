@@ -16,6 +16,7 @@ import com.gibsoncodes.filio.commons.CircleProgressBar
 import com.gibsoncodes.filio.commons.loadThumbnail
 import com.gibsoncodes.filio.models.CategoriesModel
 import com.gibsoncodes.filio.models.StorageStatisticsModel
+import com.google.android.material.imageview.ShapeableImageView
 
 @BindingAdapter("loadThumbnail","fileBitmap")
 fun AppCompatImageView.loadFileThumbnail(uri:Uri, bitmap:Bitmap?){
@@ -40,7 +41,7 @@ fun AppCompatTextView.loadCategoryItems(fileSize:Int?){
  * 3 == video
  */
 @BindingAdapter("loadRecentFilesThumbnails", "recentFilesUri")
-fun AppCompatImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
+fun ShapeableImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
     var thumbnail:Drawable? = null
 
     when(mediaType){
