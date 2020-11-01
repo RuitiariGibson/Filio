@@ -10,7 +10,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import com.gibsoncodes.filio.R
 
-private fun Context.convertToPixels(dp:Int):Int{
+ fun Context.convertToPixels(dp:Int):Int{
     val resources = resources
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
     dp.toFloat(),resources.displayMetrics).toInt()

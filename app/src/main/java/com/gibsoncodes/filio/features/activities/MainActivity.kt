@@ -100,7 +100,7 @@ class MainActivity : BaseActivity() {
                     .setMessage(getString(R.string.permission_rationale))
                     .setPositiveButton(getString(R.string.grant)){_,_->
                         requestPermission()
-                    }.setNegativeButton(getString(R.string.deny)) {p0, p1->
+                    }.setNegativeButton(getString(R.string.deny)) {p0, _->
                         binding.fragmentContainer.visibility=View.GONE
                         binding.permissionRationale.visibility=View.VISIBLE
                         binding.bottomNavigationView.fadeBottomNavigationView(true)

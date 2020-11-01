@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+<variable
+    name="adapter"
+    type="com.gibsoncodes.filio.adapters.ImagesAdapter" />
+        <variable
+            name="imagesViewModel"
+            type="com.gibsoncodes.filio.features.viewmodels.ImagesViewModel" />
+
+        <variable
+            name="activity"
+            type="androidx.appcompat.app.AppCompatActivity" />
+
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.ImagesActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:id="@+id/receiver_appbar"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:id="@+id/imagesToolBar"
+                app:title="Images"
+                app:simpleToolbarWithUpButton="@{activity}"
+                app:titleTextColor="@android:color/white"
+                android:layout_height="match_parent" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/images_recyclerView"
+            app:spanCount="2"
+            app:imagesAdapter="@{adapter}"
+            app:imagesList="@{imagesViewModel.imagesLiveData}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/images_item_layout"
+            android:layout_below="@id/receiver_appbar"
+            android:layout_margin="4dp"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</layout>

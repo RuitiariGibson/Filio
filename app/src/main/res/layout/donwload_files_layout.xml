@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="downloadsModel"
+            type="com.gibsoncodes.filio.models.DownloadsModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="50dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:dateAdded="@{downloadsModel.dateAdded}"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalGuide"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Mon,Aug 31" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="8dp"
+            android:foregroundGravity="center"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toTopOf="@id/horizontalGuideTwo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuide">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/roundedImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foregroundGravity="center"
+                android:scaleType="centerInside"
+                app:fileUri="@{downloadsModel.uri}"
+                app:loadFileThumbnail="@{downloadsModel.bitmap}"
+                tools:src="@drawable/ms_word_icon" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="150dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="100dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/documentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/verticalGuide"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuide"
+            tools:text="Concepts of Tort Law in East Africa" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/documentSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:formatSizeToString="@{downloadsModel.fileSize}"
+            app:layout_constraintLeft_toRightOf="@id/verticalGuide"
+            app:layout_constraintTop_toBottomOf="@id/documentName"
+            tools:text="4.54 MB" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

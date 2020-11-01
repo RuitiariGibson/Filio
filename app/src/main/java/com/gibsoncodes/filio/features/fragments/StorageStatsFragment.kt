@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.gibsoncodes.di.modules.storageStatisticsModule
 import com.gibsoncodes.filio.R
+import com.gibsoncodes.filio.commons.fadeIn
 import com.gibsoncodes.filio.databinding.FragmentStorageStatsBinding
 import com.gibsoncodes.filio.features.viewmodels.StorageStatisticsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,11 +32,11 @@ private val storageStatisticsViewModel:StorageStatisticsViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.storageStats.alpha=0f
-        binding.storageStats.animate()
-            .translationY(binding.storageStats.height.toFloat())
-            .alpha(1.0f)
+        val constantDuration = 2500L
 
-
+        binding.storageStats.fadeIn(fadeDuration = constantDuration)
+        binding.storageStatsCard.fadeIn(
+            halfTime = 2.0.toLong() * constantDuration,
+            fadeDuration = constantDuration)
     }
 }

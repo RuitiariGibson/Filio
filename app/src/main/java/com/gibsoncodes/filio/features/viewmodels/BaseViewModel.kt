@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 
 abstract class BaseViewModel(application:Application):AndroidViewModel(application) {
     var contentObserver:ContentObserver?=null
-
+@Suppress("DEPRECATION")
     fun ContentResolver.registerContentObserver(uri:Uri,
     onChange:(Boolean)->Unit):ContentObserver{
         val observer =object: ContentObserver(Handler()){

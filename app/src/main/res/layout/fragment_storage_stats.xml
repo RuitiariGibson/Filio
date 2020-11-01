@@ -19,7 +19,6 @@
     android:layout_width="wrap_content"
     android:layout_marginTop="20dp"
     android:textSize="16sp"
-
     android:layout_height="wrap_content"
     android:textColor="@color/colorPrimary"
     android:id="@+id/storageStats"
@@ -75,7 +74,7 @@
             android:layout_height="450dp"
             android:layout_gravity="bottom"
             android:layout_marginStart="65dp"
-
+            android:id="@+id/storageStatsCard"
             android:layout_marginTop="100dp"
             app:cardElevation="8dp"
             android:foregroundGravity="center"
