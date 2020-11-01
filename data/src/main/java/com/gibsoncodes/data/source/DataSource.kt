@@ -49,7 +49,7 @@ class DataSource (private val context:Context){
         // MediaStore.Files.getContentUri("external") get documents
         val selectionArgs = arrayOf(getDateWithinAPeriod().toString())
         // AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,6,1,3)
-        val selection ="${MediaStore.Files.FileColumns.DATE_ADDED} >= ? AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,6,1,3) "
+        val selection ="${MediaStore.Files.FileColumns.DATE_ADDED} >= ? AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,1,3) "
         val sortOrder = "${MediaStore.Files.FileColumns.DATE_ADDED} DESC"
         val query = context.contentResolver
             .query(MediaStore.Files.getContentUri("external"),
@@ -83,7 +83,7 @@ class DataSource (private val context:Context){
     @SuppressLint("SimpleDateFormat")
     private fun getDateWithinAPeriod():Long{
         val calendar = Calendar.getInstance()
-        val days = -3
+        val days = -2
         calendar.add(Calendar.DAY_OF_YEAR, days)
         val date = Date(calendar.timeInMillis)
         // Sun Oct 25 11:36:26 GMT+03:00 2020

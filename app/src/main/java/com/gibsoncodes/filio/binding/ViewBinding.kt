@@ -17,6 +17,7 @@ import com.gibsoncodes.filio.commons.loadThumbnail
 import com.gibsoncodes.filio.models.CategoriesModel
 import com.gibsoncodes.filio.models.StorageStatisticsModel
 import com.google.android.material.imageview.ShapeableImageView
+import kotlin.math.round
 
 @BindingAdapter("loadThumbnail","fileBitmap")
 fun AppCompatImageView.loadFileThumbnail(uri:Uri, bitmap:Bitmap?){
@@ -33,10 +34,10 @@ fun AppCompatTextView.loadCategoryItems(fileSize:Int?){
         this.text = finalFileSize
     }
 }
+
 /**
  * Media types as per the documentation
  * 2 == audio
- * 6 == document
  * 1 == image
  * 3 == video
  */
@@ -48,9 +49,6 @@ fun ShapeableImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
         2->{
            thumbnail = ContextCompat.getDrawable(this.context, R.drawable.audio_folder_icon)
         }
-        6->{
-            thumbnail=ContextCompat.getDrawable(this.context, R.drawable.default_file_icon)
-        }
         1->{
             thumbnail=ContextCompat.getDrawable(this.context, R.drawable.picture_folder_icon)
         }
@@ -60,8 +58,33 @@ fun ShapeableImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
     }
     Glide.with(this.context)
         .load(uri)
+        .centerCrop()
         .error(thumbnail)
         .into(this)
+}
+
+@BindingAdapter("totalStorageStatisticsStatus")
+fun AppCompatTextView.loadStorageStatusPerStatistics(storageStatisticsModel:StorageStatisticsModel?){
+    storageStatisticsModel?.let {
+
+        val usedUp = storageStatisticsModel.usedUpStorage.removeRange(
+            (storageStatisticsModel.usedUpStorage.length - 3),
+            storageStatisticsModel.usedUpStorage.length
+        )
+        val total = storageStatisticsModel.totalStorage.removeRange(
+            storageStatisticsModel.totalStorage.length - 3,
+            storageStatisticsModel.totalStorage.length
+        )
+        val availableMemory = round(total.toFloat() - usedUp.toFloat())
+
+        val status = if (availableMemory >= 5){
+            "storage status : good"
+        }else{
+            "storage status : running low on storage"
+        }
+
+        this.text = status
+    }
 }
 @BindingAdapter("loadCategoryThumbnail")
 fun AppCompatImageView.loadCategoryThumbnail(categoryName:String){

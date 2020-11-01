@@ -8,12 +8,14 @@ import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.transition.TransitionManager
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.commons.AnimatorListener
+import com.gibsoncodes.filio.commons.BottomNavigationBehaviour
 import com.gibsoncodes.filio.databinding.ActivityMainBinding
 import com.gibsoncodes.filio.features.fragments.AboutFragment
 import com.gibsoncodes.filio.features.fragments.MainFragment
@@ -35,7 +37,7 @@ class MainActivity : BaseActivity() {
         binding.apply {
             lifecycleOwner=this@MainActivity
         }
-        setSupportActionBar(binding.toolBar)
+        // setSupportActionBar(binding.toolBar)
         if (havePermission()){
             binding.bottomNavigationView.fadeBottomNavigationView(false)
                 doInitialFragmentTransaction()
@@ -53,6 +55,9 @@ class MainActivity : BaseActivity() {
                 requestPermission()
             }
         }
+        val layoutParams:CoordinatorLayout.LayoutParams = binding.bottomNavigationView
+            .layoutParams as CoordinatorLayout.LayoutParams
+        layoutParams.behavior = BottomNavigationBehaviour()
         binding.bottomNavigationView.wireUpListener()
 
 

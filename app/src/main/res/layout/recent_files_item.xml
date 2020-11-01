@@ -23,6 +23,7 @@
     android:layout_margin="6dp"
     android:background="@android:color/white"
     android:layout_height="wrap_content">
+
 <com.google.android.material.imageview.ShapeableImageView
     android:layout_width="200dp"
     app:srcCompat="@drawable/ms_word_icon"
@@ -51,6 +52,20 @@
         android:layout_centerVertical="true"
         android:textSize="18sp"
         android:layout_height="wrap_content"/>
+
 </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/secondaryTextColor"
+            app:shapeAppearance="@style/roundedImageView"
+            app:srcCompat="@drawable/audio_type"
+            android:scaleType="centerInside"/>
+    </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>
 </layout>

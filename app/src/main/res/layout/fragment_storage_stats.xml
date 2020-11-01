@@ -20,9 +20,10 @@
     android:layout_marginTop="20dp"
     android:textSize="16sp"
     android:layout_height="wrap_content"
+    android:textColor="@color/colorPrimary"
     android:id="@+id/storageStats"
     android:layout_centerHorizontal="true"
-    android:text="Your storage stats"/>
+    android:text="@string/your_storage_stats"/>
 
         <View
             android:id="@+id/rod"
@@ -64,7 +65,7 @@
             android:rotation="-90"
             android:text="@string/internal_storage"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="18sp"
             tools:text="Internal storage" />
 
 
@@ -94,7 +95,8 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
-                app:progressBarThickness="25dp"
+                app:progressBarThickness="16dp"
+                app:progressBarTextColor="@color/colorPrimary"
                 app:progressbarColor="@android:color/white"
                 app:storageStatistics="@{storageStatistics.liveData}" />
 
@@ -106,23 +108,23 @@
                 android:layout_marginBottom="100dp"
                 android:drawablePadding="4dp"
                 android:text="@string/used"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="16sp"
                 app:drawableStartCompat="@drawable/text_circle"
                 tools:text="Used" />
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_vertical|center_horizontal"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="40dp"
                 android:drawablePadding="4dp"
-                android:textColor="@android:color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="status : ok"
-                app:drawableStartCompat="@drawable/storage_status"
-                tools:text="Status: ok" />
+                android:ems="10"
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:textColor="@android:color/secondary_text_light"
+                app:totalStorageStatisticsStatus="@{storageStatistics.liveData}"
+                tools:text="storage status: running low on storage" />
 
         </com.google.android.material.card.MaterialCardView>
 

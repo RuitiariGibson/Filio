@@ -31,5 +31,6 @@
     <string name="internal_storage">Internal storage</string>
     <string name="your_storage">Your storage</string>
     <string name="recent_files">Recent files</string>
+    <string name="your_storage_stats">Your storage stats</string>
 
 </resources>
