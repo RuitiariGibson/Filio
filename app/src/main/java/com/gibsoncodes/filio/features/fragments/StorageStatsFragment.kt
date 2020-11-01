@@ -19,7 +19,6 @@ private val storageStatisticsViewModel:StorageStatisticsViewModel by viewModel()
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val binding = bindFragment<FragmentStorageStatsBinding>(
             container, inflater,R.layout.fragment_storage_stats, false
         ).apply {

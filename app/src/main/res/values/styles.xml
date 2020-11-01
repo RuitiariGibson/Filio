@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
     </style>
 
     <style name="ShapeAppearanceOverlay.CardView" parent="">
@@ -40,8 +42,12 @@
     <style name="ShapeAppearanceOverlay.main" parent="">
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerSizeTopRight">70dp</item>
         <item name="cornerSizeBottomLeft">75dp</item>
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.CardView3" parent="">

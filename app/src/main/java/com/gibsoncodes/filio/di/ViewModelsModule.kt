@@ -25,3 +25,6 @@ val storageStatisticsViewModelModule = module{
 val fileSizeViewModelModule = module{
     viewModel { FileSizesViewModel(get(named("fileSize"))) }
 }
+val recentFilesViewModel = module{
+    viewModel{RecentFilesViewModel(androidApplication(),get(named("recentFiles")))}
+}

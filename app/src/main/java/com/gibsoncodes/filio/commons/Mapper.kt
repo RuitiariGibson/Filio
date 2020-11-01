@@ -18,3 +18,6 @@ this.fileSize,this.fileExtension,this.bitmap,this.dateAdded, this.uri)
 
 fun TotalFileSizes.toFileSizeModel():FileSizesModel = FileSizesModel(this.audiosSize,
 this.videosSize,this.downloadsFileSize, this.imagesFileSize)
+
+fun RecentFiles.toRecentFilesModel():RecentFilesModel= RecentFilesModel(this.fileId,
+this.fileName,this.fileSize,this.fileUri,this.dateAdded,this.fileType)

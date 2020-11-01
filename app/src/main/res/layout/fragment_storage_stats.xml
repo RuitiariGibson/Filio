@@ -6,151 +6,117 @@
             name="storageStatistics"
             type="com.gibsoncodes.filio.features.viewmodels.StorageStatisticsViewModel" />
     </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/colorPrimary"
+        android:background="@color/white_12"
         tools:context=".activities.fragments.FirstFragment">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
-            android:text="@string/file"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"
-            android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"
-            android:text="@string/manager"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"
-            android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="150dp"
-            android:text="@string/clean"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:layout_height="wrap_content"/>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="150dp"
-            android:text="@string/manage_your"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="16sp"
-            android:id="@+id/your"
-            android:layout_height="wrap_content"/>
+
+
+
         <View
-            android:layout_width="45dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="260dp"
             android:id="@+id/rod"
-            android:background="@android:color/white"
-            android:layout_height="2dp"/>
-        <View
-            android:layout_width="8dp"
-            android:layout_alignEnd="@id/rod"
-            android:layout_marginTop="258dp"
-            android:background="@drawable/storage_circle"
-            android:layout_height="8dp"/>
-        <View
             android:layout_width="45dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="2dp"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="463dp"
-            android:id="@+id/rod_2"
-            android:background="@android:color/white"
-            android:layout_height="2dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="203dp"
+            android:background="@android:color/black" />
+
         <View
             android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_alignEnd="@id/rod"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/storage_circle" />
+
+        <View
+            android:id="@+id/rod_2"
+            android:layout_width="45dp"
+            android:layout_height="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="450dp"
+            android:background="@android:color/black" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
             android:layout_alignEnd="@id/rod_2"
-            android:layout_marginTop="460dp"
-            android:background="@drawable/storage_circle"
-            android:layout_height="8dp"/>
+            android:layout_marginTop="447dp"
+            android:background="@drawable/storage_circle" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
-            tools:text="Internal storage"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-40dp"
+            android:layout_marginTop="300dp"
             android:rotation="-90"
-            android:layout_marginStart="-25dp"
-            android:layout_height="wrap_content"/>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            app:cardForegroundColor="@android:color/white"
-            app:shapeAppearance="@style/ShapeAppearanceOverlay.CardView2"
-            android:layout_height="280dp"/>
+            android:text="@string/internal_storage"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            tools:text="Internal storage" />
+
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="280dp"
+            android:layout_height="450dp"
             android:layout_gravity="bottom"
-            android:layout_below="@id/your"
-            app:cardCornerRadius="20dp"
-            android:elevation="6dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="100dp"
+            app:cardElevation="8dp"
             android:foregroundGravity="center"
-            app:cardBackgroundColor="@color/forthCircleColor"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="30dp"
-            android:layout_height="450dp">
+            app:cardBackgroundColor="@color/secondaryTextColor"
+            app:cardCornerRadius="20dp">
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
                 android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
                 android:layout_marginTop="25dp"
-                tools:text="Your storage"/>
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:text="@string/your_storage"
+                tools:text="Your storage" />
+
             <com.gibsoncodes.filio.commons.CircleProgressBar
                 android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 app:progressBarThickness="25dp"
-                app:storageStatistics="@{storageStatistics.liveData}"
                 app:progressbarColor="@android:color/white"
-                android:layout_height="200dp"/>
+                app:storageStatistics="@{storageStatistics.liveData}" />
+
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/used"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="100dp"
-                tools:text="Used"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
                 android:drawablePadding="4dp"
-                app:drawableStartCompat="@drawable/text_circle"
+                android:text="@string/used"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:id="@+id/used"
-                android:layout_height="wrap_content"/>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_height="wrap_content">
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="132dp"
-                    android:src="@drawable/used_btn_frame"
-                    android:clickable="false"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_height="54dp"/>
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="120dp"
-                    app:cornerRadius="20dp"
-                    tools:text="Clean"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="55dp"/>
-            </FrameLayout>
+                app:drawableStartCompat="@drawable/text_circle"
+                tools:text="Used" />
+            <androidx.appcompat.widget.AppCompatTextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="50dp"
+                android:drawablePadding="4dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/storage_status"
+                tools:text="Status: ok" />
+
         </com.google.android.material.card.MaterialCardView>
 
 

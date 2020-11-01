@@ -2,6 +2,12 @@
 <layout>
 <data>
     <variable
+        name="recentAdapter"
+        type="com.gibsoncodes.filio.adapters.RecentFilesAdapter" />
+    <variable
+        name="recentFilesVm"
+        type="com.gibsoncodes.filio.features.viewmodels.RecentFilesViewModel" />
+    <variable
         name="adapter"
         type="com.gibsoncodes.filio.adapters.CategoriesAdapter" />
     <variable
@@ -16,89 +22,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
+    android:background="@color/white_12"
     tools:context=".activities.fragments.MainFragment">
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:id="@+id/my_storage"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+       android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:text="@string/my_storage"
         tools:text="My storage" />
-
-    <LinearLayout
-        android:id="@+id/first_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/my_storage"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <com.gibsoncodes.filio.commons.CircleProgressBar
-        android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            app:storageStatistics="@{storageStatistics.liveData}"
-            app:progressBarThickness="5dp"
-            app:progressbarColor="@color/secondaryTextColor" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:ems="5"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:storageStatus="@{storageStatistics.liveData}"
-            tools:text="Total used 89GB/120GB" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_marginStart="10dp"
-            android:ems="3"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="20sp"
-            app:itemsTotal="@{viewModel.fileSizeLiveData}"
-            android:textStyle="bold"
-            tools:text="890 items" />
-    </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/first_layout"
-        android:layout_marginTop="30dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.main">
+        android:layout_below="@id/my_storage"
+        android:layout_marginTop="10dp"
+        android:id="@+id/firstLayout"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/textColor"
+        android:layout_margin="6dp"
+        android:foregroundGravity="center"
+        app:cardCornerRadius="10dp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:ems="6"
+            android:gravity="end"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:storageStatus="@{storageStatistics.liveData}"
+            tools:text="Total used 89GB/120GB" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:background="@color/secondaryTextColor"
+            android:layout_height="wrap_content">
+             <com.gibsoncodes.filio.commons.CircleProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+                 android:layout_centerInParent="true"
+            app:progress="80"
+            app:max="100"
+            android:layout_marginStart="15dp"
+            app:progressBarTextColor="@android:color/white"
+            android:id="@+id/progressBar"
+            app:storageStatistics="@{storageStatistics.liveData}"
+            app:progressBarThickness="8dp"
+            app:progressbarColor="@color/textColor" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        tools:listitem="@layout/recent_files_item"
+        android:orientation="horizontal"
+        android:id="@+id/recentFilesRv"
+        android:layout_margin="10dp"
+        app:recentFilesAdapter="@{recentAdapter}"
+        app:recentFilesList="@{recentFilesVm.liveData}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_below="@id/firstLayout"
+        android:layout_height="wrap_content"/>
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             tools:text="CATEGORIES"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            android:layout_marginTop="6dp"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
+            android:layout_below="@id/recentFilesRv"
+            android:layout_marginTop="10dp"
+            android:id="@+id/categoriesText"
+            android:text="@string/categories"
+            android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_marginTop="35dp"
-            app:storageCategoryAdapter="@{adapter}"
-            app:storageCategoryList="@{viewModel.fileSizeLiveData}"
-            tools:listitem="@layout/storage_category_item_layout"
-            android:id="@+id/storageCategoriesRv"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.card.MaterialCardView>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:foregroundGravity="center"
+        app:storageCategoryAdapter="@{adapter}"
+        android:layout_below="@id/categoriesText"
+        app:storageCategoryList="@{viewModel.fileSizeLiveData}"
+        tools:listitem="@layout/storage_category_item_layout"
+        android:id="@+id/storageCategoriesRv"
+        android:layout_height="match_parent" />
 </RelativeLayout>
     </layout>

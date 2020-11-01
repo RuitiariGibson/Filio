@@ -1,8 +1,13 @@
 package com.gibsoncodes.filio.features.activities
 
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import android.transition.TransitionManager
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -27,10 +32,16 @@ class MainActivity : BaseActivity() {
     private val binding:ActivityMainBinding by bind(R.layout.activity_main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.apply {
+            lifecycleOwner=this@MainActivity
+        }
+        setSupportActionBar(binding.toolBar)
         if (havePermission()){
+            binding.bottomNavigationView.fadeBottomNavigationView(false)
                 doInitialFragmentTransaction()
             binding.bottomNavigationView.wireUpListener()
         }else{
+            binding.bottomNavigationView.fadeBottomNavigationView(true)
          binding.permissionRationale.animate()
              .alpha(1f)
              .setDuration(80L)
@@ -42,6 +53,7 @@ class MainActivity : BaseActivity() {
                 requestPermission()
             }
         }
+        binding.bottomNavigationView.wireUpListener()
 
 
     }
@@ -50,7 +62,9 @@ class MainActivity : BaseActivity() {
     }
     private fun requestPermission(){
         if (!havePermission()){
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),readStorageRequestCode)
+            ActivityCompat.requestPermissions(this,
+                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE),readStorageRequestCode)
         }
     }
 
@@ -67,7 +81,10 @@ class MainActivity : BaseActivity() {
                .setListener(AnimatorListener{
                    binding.permissionRationale.visibility=View.GONE
                    binding.fragmentContainer.visibility=View.VISIBLE
+                   binding.bottomNavigationView.fadeBottomNavigationView(false)
                })
+            doInitialFragmentTransaction()
+            binding.bottomNavigationView.wireUpListener()
         }else{
             if (binding.fragmentContainer.visibility==View.VISIBLE)
                 binding.fragmentContainer.visibility=View.GONE
@@ -76,17 +93,28 @@ class MainActivity : BaseActivity() {
                 MaterialAlertDialogBuilder(this)
                     .setTitle(getString(R.string.permission))
                     .setMessage(getString(R.string.permission_rationale))
-                    .setPositiveButton(getString(R.string.grant)){p0,p1->
+                    .setPositiveButton(getString(R.string.grant)){_,_->
                         requestPermission()
                     }.setNegativeButton(getString(R.string.deny)) {p0, p1->
                         binding.fragmentContainer.visibility=View.GONE
                         binding.permissionRationale.visibility=View.VISIBLE
+                        binding.bottomNavigationView.fadeBottomNavigationView(true)
                         p0.dismiss()
                     }
                     .show()
             }else{
-                return
+                goToSetting()
             }
+        }
+    }
+    private fun goToSetting(){
+        Intent(ACTION_APPLICATION_DETAILS_SETTINGS,
+            Uri.parse("package:$packageName")).apply {
+            addCategory(Intent.CATEGORY_DEFAULT)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }.also{
+            intent->
+            startActivity(intent)
         }
     }
 private fun BottomNavigationView.wireUpListener(){
@@ -123,21 +151,45 @@ private fun BottomNavigationView.wireUpListener(){
         }
     }
 }
+    private fun BottomNavigationView.fadeBottomNavigationView(fade:Boolean){
+        when {
+            fade -> {
+                binding.bottomNavigationView.animate()
+                    .alpha(0f)
+                    .setDuration(2000L)
+                    .setInterpolator(DecelerateInterpolator())
+                    .setListener(AnimatorListener{
+                        binding.bottomNavigationView.visibility=View.INVISIBLE
+                    })
+            }
+            else -> {
+                binding.bottomNavigationView.animate()
+                    .alpha(1f)
+                    .setDuration(2000L)
+                    .setInterpolator(DecelerateInterpolator())
+                    .setListener(AnimatorListener{
+                        binding.bottomNavigationView.visibility=View.VISIBLE
+                    })
+            }
+        }
+    }
     private fun doInitialFragmentTransaction(){
-        fragManager.beginTransaction().add(R.id.fragmentContainer,mainFragment,
-            getString(R.string.mainFragTag)).show(mainFragment).commit()
+
         fragManager.beginTransaction().add(R.id.fragmentContainer,
             statisticsFragment,getString(R.string.statisticsFragTag))
-            .hide(statisticsFragment)
+            .hide(statisticsFragment).commit()
         fragManager.beginTransaction().add(R.id.fragmentContainer,
-            aboutFragment,getString(R.string.aboutFragTag)).hide(aboutFragment)
+            aboutFragment,getString(R.string.aboutFragTag)).hide(aboutFragment).commit()
+        fragManager.beginTransaction().add(R.id.fragmentContainer,mainFragment,
+            getString(R.string.mainFragTag)).commit()
     }
     override fun onDestroy() {
         if (activeFragment!=null && activeFragment!=mainFragment){
             fragManager.beginTransaction()
                 .hide(activeFragment!!)
-                .show(mainFragment)
+
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .show(mainFragment)
                 .commit()
             activeFragment=mainFragment
         }else{

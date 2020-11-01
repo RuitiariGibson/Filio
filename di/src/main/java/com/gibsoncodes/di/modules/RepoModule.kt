@@ -1,10 +1,7 @@
 package com.gibsoncodes.di.modules
 
 import com.gibsoncodes.data.source.DataSource
-import com.gibsoncodes.data.source.repo.DocumentFilesRepoImpl
-import com.gibsoncodes.data.source.repo.FileSizeRepoImpl
-import com.gibsoncodes.data.source.repo.MediaFilesRepoImpl
-import com.gibsoncodes.data.source.repo.StatisticsRepoImpl
+import com.gibsoncodes.data.source.repo.*
 import com.gibsoncodes.domain.repo.*
 import org.koin.dsl.module
 
@@ -32,4 +29,9 @@ private fun provideStorageStatisticsRepo(source:DataSource): StatisticsRepoImpl 
 }
 private fun provideDocumentsRepo(source:DataSource): DocumentFilesRepoImpl {
     return DocumentFilesRepoImpl(source)
+}
+val recentFilesModule = module{
+    single<RecentFilesRepo> {
+        RecentFilesRepoImpl(get())
+    }
 }

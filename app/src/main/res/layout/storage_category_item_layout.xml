@@ -9,9 +9,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="300dp"
+        android:layout_width="340dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="8dp"
         android:foregroundGravity="center"
         app:cardElevation="8dp"
@@ -37,6 +37,7 @@
                     android:layout_width="30dp"
                     android:layout_centerInParent="true"
                     android:layout_height="30dp"
+                    app:loadCategoryThumbnail="@{storageCategory.categoryName}"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     tools:src="@drawable/audio_folder_icon" />
@@ -47,7 +48,7 @@
                 android:layout_marginStart="20dp"
                 android:id="@+id/folder_name"
                 android:layout_marginTop="7dp"
-                android:textStyle="bold"
+                android:text="@{storageCategory.categoryName}"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 tools:text="Music" />
@@ -61,9 +62,9 @@
             android:layout_marginStart="80dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@android:color/black"
+            app:loadCategoryItems="@{storageCategory.categorySize}"
             android:textSize="16sp"
-            tools:text="Files: 75" />
+            tools:text="Size: 75" />
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

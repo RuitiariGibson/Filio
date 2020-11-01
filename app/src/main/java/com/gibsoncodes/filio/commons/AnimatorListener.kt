@@ -4,7 +4,7 @@ import android.animation.Animator
 
 class AnimatorListener (private val onEnd:(Animator?)->Unit):Animator.AnimatorListener {
     override fun onAnimationRepeat(p0: Animator?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onAnimationEnd(p0: Animator?) {
@@ -12,11 +12,10 @@ class AnimatorListener (private val onEnd:(Animator?)->Unit):Animator.AnimatorLi
     }
 
     override fun onAnimationCancel(p0: Animator?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onAnimationStart(p0: Animator?) {
-        TODO("Not yet implemented")
     }
 
 }

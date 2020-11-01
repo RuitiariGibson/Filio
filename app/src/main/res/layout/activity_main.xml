@@ -8,8 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mainScreenCord"
-        android:background="@android:color/white"
+     android:fitsSystemWindows="true"
+        android:background="@color/white_12"
         tools:context=".features.activities.MainActivity">
+     <com.google.android.material.appbar.MaterialToolbar
+         android:layout_width="match_parent"
+         android:backgroundTint="@android:color/white"
+         android:id="@+id/toolBar"
+         android:layout_height="wrap_content">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:orientation="horizontal">
+             <androidx.appcompat.widget.AppCompatImageView
+                 android:layout_width="40dp"
+                 app:srcCompat="@drawable/folder_icon"
+                 android:foregroundGravity="center"
+                 android:layout_height="40dp"/>
+         </LinearLayout>
+
+     </com.google.android.material.appbar.MaterialToolbar>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,6 +45,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
+            app:srcCompat="@drawable/lack_permission_wave"
             android:layout_gravity="center"
             tools:src="@drawable/lack_permission_wave" />
 
@@ -39,6 +59,7 @@
             android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="18sp"
+            android:text="@string/permissionText"
             tools:text="Nothing yet? Don't fret :-) The application requires permission to access your storage in order to function" />
 
         <com.google.android.material.button.MaterialButton
@@ -48,6 +69,7 @@
             android:layout_marginTop="15dp"
             android:foregroundGravity="center"
             tools:text="Grant Permission"
+            android:text="@string/grant_permission"
             android:id="@+id/grantPermissionButton"
             app:cornerRadius="8dp"
             app:elevation="5dp" />
@@ -56,14 +78,16 @@
 
 <com.gibsoncodes.filio.commons.BottomNavigationIndicator
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?actionBarSize"
     android:minHeight="?actionBarSize"
-    app:elevation="9dp"
     android:layout_gravity="bottom"
     app:menu="@menu/bottom_navigation"
+    android:background="@color/white_12"
+    tools:visibility="visible"
+    app:elevation="4dp"
+    android:visibility="gone"
+    app:backgroundTint="@color/white_12"
     android:id="@+id/bottomNavigationView"
-    app:itemIconTint="@color/colorPrimary"
-    android:background="@android:color/white"
     app:labelVisibilityMode="unlabeled" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

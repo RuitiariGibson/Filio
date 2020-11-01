@@ -30,6 +30,7 @@ class CircleProgressBar(context:Context,attrs:AttributeSet):View(context,attrs) 
     private var backgroundPaint: Paint? = null
     private var foregroundPaint: Paint? = null
     private var textPaint:Paint?=null
+    private var textColor :Int = Color.WHITE
     fun getStrokeWidth(): Float {
         return strokeWidth
     }
@@ -97,6 +98,8 @@ class CircleProgressBar(context:Context,attrs:AttributeSet):View(context,attrs) 
             )
             progress = typedArray.getFloat(R.styleable.CircleProgressBar_progress, progress)
             color = typedArray.getInt(R.styleable.CircleProgressBar_progressbarColor, color)
+            textColor = typedArray.getInt(R.styleable.CircleProgressBar_progressBarTextColor,
+            textColor)
             min = typedArray.getInt(R.styleable.CircleProgressBar_min, min)
             max = typedArray.getInt(R.styleable.CircleProgressBar_max, max)
         } finally {
@@ -112,7 +115,7 @@ class CircleProgressBar(context:Context,attrs:AttributeSet):View(context,attrs) 
         foregroundPaint!!.strokeWidth = strokeWidth
         textPaint= Paint(Paint.ANTI_ALIAS_FLAG)
         textPaint!!.style= Paint.Style.FILL
-        textPaint!!.color = Color.WHITE
+        textPaint!!.color = textColor
         textPaint!!.strokeWidth=0.5f
 
     }

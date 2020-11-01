@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.appcompat.widget.AppCompatImageView
+    android:layout_width="40dp"
+android:layout_alignParentTop="true"
+    app:srcCompat="@drawable/ms_word_icon"
+    android:layout_marginTop="15dp"
+    android:id="@+id/first"
+    android:layout_centerHorizontal="true"
+    android:layout_height="40dp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/default_file_icon"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="74dp"
+        android:layout_marginEnd="39dp"
+        app:srcCompat="@drawable/audio_folder_icon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+
+
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/power_point_file_icon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="153dp"
+        app:srcCompat="@drawable/excel_file_icon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="291dp"
+        android:layout_marginBottom="178dp"
+        app:srcCompat="@drawable/folder" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="182dp"
+        android:layout_marginBottom="106dp"
+        app:srcCompat="@drawable/zip_folder_icon" />
+</RelativeLayout>

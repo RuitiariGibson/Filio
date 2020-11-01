@@ -1,10 +1,7 @@
 package com.gibsoncodes.di.modules
 
 import com.gibsoncodes.domain.properties.*
-import com.gibsoncodes.domain.repo.DocumentsRepo
-import com.gibsoncodes.domain.repo.FileSizesRepo
-import com.gibsoncodes.domain.repo.MediaFilesRepo
-import com.gibsoncodes.domain.repo.StatisticsRepo
+import com.gibsoncodes.domain.repo.*
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -31,6 +28,9 @@ val propertiesModule = module {
             get()
         )
     }
+    single(named("recentFiles")){
+        provideRecentFilesProperties(get())
+    }
 }
 private fun provideImageProperty(repo:MediaFilesRepo):ImagesProperties{
     return ImagesProperties(repo)
@@ -49,4 +49,7 @@ private fun provideStorageStatsProperty(repo:StatisticsRepo):StatisticsProperty{
 }
 private fun provideTotalFileSize(repo:FileSizesRepo):FileSizeProperties{
     return FileSizeProperties(repo)
+}
+private fun provideRecentFilesProperties(repo:RecentFilesRepo):RecentFilesProperties{
+    return RecentFilesProperties(repo)
 }

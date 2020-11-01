@@ -19,9 +19,16 @@
     <string name="permission">Permission</string>
     <string name="mainFragTag">MainFragment</string>
     <string name="aboutFragTag">AboutFragment</string>
+    <string name="permissionText">Nothing yet? Don\'t fret :-) The application requires permission to access your storage in order to function</string>
     <string name="statisticsFragTag">StatisticsFragment</string>
     <string name="about_author">Got questions regarding the app?Issues or compliments reach out via ruitiarigibson@students.uonbi.ac.ke *_*</string>
     <string name="permission_rationale">The app needs permission read your storage in order for the app to function. ^_^</string>
     <string name="about_text">Filio is a file manager app inspired by google files.The app is not in anyway affiliated with google.In addition, the app does not in any way sell or give your data to third parties.It is solely for educational purposes</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="categories">CATEGORIES</string>
+    <string name="my_storage">My Storage</string>
+    <string name="used">Used</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="your_storage">Your storage</string>
 
 </resources>

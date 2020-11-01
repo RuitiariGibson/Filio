@@ -26,6 +26,60 @@ import kotlin.math.absoluteValue
  * Class contains all the meat/methods used to load data needed by the app
  */
 class DataSource (private val context:Context){
+    suspend fun loadRecentFiles():List<RecentFiles> = withContext(Dispatchers.IO){
+    val projection = arrayOf(
+        MediaStore.Files.FileColumns._ID,
+        MediaStore.Files.FileColumns.TITLE,
+        MediaStore.Files.FileColumns.SIZE,
+        MediaStore.Files.FileColumns.MEDIA_TYPE,
+        MediaStore.Files.FileColumns.DATE_ADDED
+    )
+        val recentFiles = mutableListOf<RecentFiles>()
+        /**
+         * Media types as per the documentation
+         * 2 == audio
+         * 6 == document
+         * 1 == image
+         * 3 == video
+         */
+        // MediaStore.Files.getContentUri("external") get documents
+        val selectionArgs = arrayOf(getDateWithinAPeriod().toString())
+        val selection ="${MediaStore.Files.FileColumns.DATE_ADDED} >= ? AND ${MediaStore.Files.FileColumns.MEDIA_TYPE} IN (2,6,1,3)"
+        val sortOrder = "${MediaStore.Files.FileColumns.DATE_ADDED} DESC"
+        val query = context.contentResolver
+            .query(MediaStore.Files.getContentUri("external"),
+            projection, selection, selectionArgs, sortOrder)
+        query?.use{
+            cursor->
+            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)
+            val fileName = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE)
+            val fileSize = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)
+            val dateAddedFile = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED)
+            val mediaType = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE)
+            while(cursor.moveToNext()){
+                val fileId = cursor.getLong(idColumn)
+                val name = cursor.getString(fileName)
+                val size = cursor.getInt(fileSize)
+                val dateAdded = Date(cursor.getLong(dateAddedFile))
+                val fileMediaType = cursor.getInt(mediaType)
+                val uri = ContentUris.withAppendedId(MediaStore.Files.getContentUri("external"),
+                fileId)
+                val recentFile = RecentFiles(fileId,name, size, uri, dateAdded,
+                fileMediaType)
+                recentFiles.plusAssign(recentFile)
+            }
+
+        }
+  return@withContext recentFiles
+
+    }
+    private fun getDateWithinAPeriod():Long{
+        val calendar = Calendar.getInstance()
+        val days = -7
+        calendar.add(Calendar.DAY_OF_YEAR, days)
+        val date = Date(calendar.timeInMillis)
+        return date.time
+    }
     /**
      * Provides a sum of all the files per category i.e
      * audio, images, downloads etc
@@ -66,7 +120,7 @@ class DataSource (private val context:Context){
                         usedUpStorage = Formatter.formatShortFileSize(
                             context,
                             usedMemory
-                        ), totalStorage = Formatter.formatShortFileSize(context, freeMemory)
+                        ), totalStorage = Formatter.formatShortFileSize(context, totalMemory)
                     )
             }
 
