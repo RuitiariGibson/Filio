@@ -12,6 +12,7 @@ import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.adapters.CategoriesAdapter
 import com.gibsoncodes.filio.adapters.RecentFilesAdapter
 import com.gibsoncodes.filio.commons.RvItemTouchHelper
+import com.gibsoncodes.filio.commons.fadeIn
 import com.gibsoncodes.filio.databinding.FragmentMainBinding
 import com.gibsoncodes.filio.features.viewmodels.FileSizesViewModel
 import com.gibsoncodes.filio.features.viewmodels.RecentFilesViewModel
@@ -27,6 +28,7 @@ class MainFragment : BaseFragments() {
     private val recentFilesAdapter by lazy{
         RecentFilesAdapter()
     }
+    private lateinit var binding:FragmentMainBinding
     private val recentFilesViewModel:RecentFilesViewModel by viewModel()
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class MainFragment : BaseFragments() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = bindFragment<FragmentMainBinding>(container,
+         binding = bindFragment<FragmentMainBinding>(container,
          inflater, R.layout.fragment_main, false)
         binding.apply {
             this.lifecycleOwner=viewLifecycleOwner
@@ -67,6 +69,14 @@ class MainFragment : BaseFragments() {
         return binding.root
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val constantDuration =2500L
+        binding.myStorage.fadeIn(fadeDuration = constantDuration)
+        binding.firstLayout.fadeIn(halfTime = 1.5.toLong()* constantDuration, fadeDuration = constantDuration)
+        binding.recentFilesRv.fadeIn(halfTime = 2* constantDuration, fadeDuration = constantDuration)
+        binding.categoriesText.fadeIn(halfTime = 2.5.toLong()*constantDuration, fadeDuration = constantDuration)
+        binding.storageCategoriesRv.fadeIn(3*constantDuration, fadeDuration = constantDuration)
+    }
 
 }

@@ -11,14 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="100dp"
-            app:cardBackgroundColor="#1DB39191"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CardView"
-            app:strokeWidth="0dp" />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/firstText"

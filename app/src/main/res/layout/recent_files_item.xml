@@ -52,19 +52,16 @@
         android:layout_centerVertical="true"
         android:textSize="18sp"
         android:layout_height="wrap_content"/>
-
 </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@color/secondaryTextColor"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            tools:src="@drawable/audio_type"
             app:shapeAppearance="@style/roundedImageView"
-            app:srcCompat="@drawable/audio_type"
+            app:loadRecentFilesCategoryThumbnail="@{recentFiles.fileType}"
             android:scaleType="centerInside"/>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

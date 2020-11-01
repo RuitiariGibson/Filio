@@ -28,7 +28,6 @@
 
 <RelativeLayout
     android:background="@color/white_12"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.appcompat.widget.AppCompatTextView
@@ -36,6 +35,8 @@
         android:id="@+id/my_storage"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:visibility="gone"
+        tools:visibility="visible"
        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/colorPrimary"
@@ -48,6 +49,8 @@
         android:layout_below="@id/my_storage"
         android:layout_marginTop="10dp"
         android:id="@+id/firstLayout"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:cardElevation="8dp"
         app:cardBackgroundColor="@color/textColor"
         android:layout_margin="6dp"
@@ -89,9 +92,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/firstLayout"
-    android:text="@string/recent_files"
+   tools:text="Recent files"
     android:layout_margin="12dp"
     android:textSize="16sp"
+    app:showRecentFilesLabel="@{recentFilesVm.liveData}"
     android:textColor="@color/colorPrimary"
     android:id="@+id/recentText"/>
     <androidx.recyclerview.widget.RecyclerView
@@ -99,6 +103,8 @@
         tools:listitem="@layout/recent_files_item"
         android:orientation="horizontal"
         android:id="@+id/recentFilesRv"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_margin="10dp"
         app:recentFilesAdapter="@{recentAdapter}"
         app:recentFilesList="@{recentFilesVm.liveData}"
@@ -116,6 +122,8 @@
             android:layout_marginTop="10dp"
             android:id="@+id/categoriesText"
             android:text="@string/categories"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"/>
@@ -124,6 +132,8 @@
         android:layout_marginTop="10dp"
         android:foregroundGravity="center"
         app:storageCategoryAdapter="@{adapter}"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_below="@id/categoriesText"
         app:storageCategoryList="@{viewModel.fileSizeLiveData}"
         tools:listitem="@layout/storage_category_item_layout"

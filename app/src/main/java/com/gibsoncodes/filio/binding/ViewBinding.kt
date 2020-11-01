@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.format.Formatter
+import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -15,6 +16,7 @@ import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.commons.CircleProgressBar
 import com.gibsoncodes.filio.commons.loadThumbnail
 import com.gibsoncodes.filio.models.CategoriesModel
+import com.gibsoncodes.filio.models.RecentFilesModel
 import com.gibsoncodes.filio.models.StorageStatisticsModel
 import com.google.android.material.imageview.ShapeableImageView
 import kotlin.math.round
@@ -34,6 +36,35 @@ fun AppCompatTextView.loadCategoryItems(fileSize:Int?){
         this.text = finalFileSize
     }
 }
+@BindingAdapter("showRecentFilesLabel")
+fun AppCompatTextView.showRecentFilesLabel(list:List<RecentFilesModel>?){
+    val show = list!=null && list.isNotEmpty()
+    if (show){
+        this.text= this.resources.getString(R.string.recent_files)
+    }else this.visibility= View.GONE
+
+}
+@BindingAdapter("loadRecentFilesCategoryThumbnail")
+fun ShapeableImageView.loadThumbnail(mediaType:Int){
+    var thumbnail:Drawable? = null
+    when(mediaType){
+        2->{
+            thumbnail = ContextCompat.getDrawable(this.context, R.drawable.audio_type)
+        }
+        3->{
+            thumbnail = ContextCompat.getDrawable(this.context, R.drawable.video_file_type)
+        }
+        1->{
+            thumbnail = ContextCompat.getDrawable(this.context, R.drawable.imagetype)
+        }
+
+    }
+    Glide.with(this.context)
+        .load(thumbnail)
+        .centerInside()
+        .into(this)
+
+}
 
 /**
  * Media types as per the documentation
@@ -44,7 +75,6 @@ fun AppCompatTextView.loadCategoryItems(fileSize:Int?){
 @BindingAdapter("loadRecentFilesThumbnails", "recentFilesUri")
 fun ShapeableImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
     var thumbnail:Drawable? = null
-
     when(mediaType){
         2->{
            thumbnail = ContextCompat.getDrawable(this.context, R.drawable.audio_folder_icon)

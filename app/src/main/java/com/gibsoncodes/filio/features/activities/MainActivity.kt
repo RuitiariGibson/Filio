@@ -188,17 +188,17 @@ private fun BottomNavigationView.wireUpListener(){
         fragManager.beginTransaction().add(R.id.fragmentContainer,mainFragment,
             getString(R.string.mainFragTag)).commit()
     }
-    override fun onDestroy() {
+
+    override fun onBackPressed() {
         if (activeFragment!=null && activeFragment!=mainFragment){
             fragManager.beginTransaction()
                 .hide(activeFragment!!)
-
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .show(mainFragment)
                 .commit()
             activeFragment=mainFragment
         }else{
-            super.onDestroy()
+            super.onBackPressed()
         }
     }
 }
