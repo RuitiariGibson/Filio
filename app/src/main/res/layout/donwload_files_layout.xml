@@ -49,8 +49,8 @@
                 android:layout_height="match_parent"
                 android:foregroundGravity="center"
                 android:scaleType="centerInside"
-                app:fileUri="@{downloadsModel.uri}"
-                app:loadFileThumbnail="@{downloadsModel.bitmap}"
+                app:loadThumbnail="@{downloadsModel.uri}"
+                app:fileBitmap="@{downloadsModel.bitmap}"
                 tools:src="@drawable/ms_word_icon" />
         </com.google.android.material.card.MaterialCardView>
 

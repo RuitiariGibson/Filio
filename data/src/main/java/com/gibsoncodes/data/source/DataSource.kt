@@ -218,12 +218,12 @@ suspend fun loadVideosMedia(): List<Videos> = withContext(Dispatchers.IO) {
  * Loads the images present in the user's phone
  */
 suspend fun loadImagesFromDisc():List<Images> = withContext(Dispatchers.IO){
-    val imagesList = ArrayList<Images> ()
+    val imagesList = mutableListOf<Images> ()
     val projections = arrayOf(MediaStore.Images.Media._ID,
         MediaStore.Images.Media.TITLE,
         MediaStore.Images.Media.SIZE,
         MediaStore.Images.Media.DATE_ADDED)
-    val sortOrder = "${MediaStore.Images.Media.DATE_ADDED} ASC"
+    val sortOrder = "${MediaStore.Images.Media.DATE_ADDED} DESC"
     val query = context.contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
     projections, null, null, sortOrder)
     query?.use{
@@ -231,6 +231,8 @@ suspend fun loadImagesFromDisc():List<Images> = withContext(Dispatchers.IO){
         val name = it.getColumnIndexOrThrow(MediaStore.Images.Media.TITLE)
         val size = it.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE)
         val dateAdded = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED)
+
+        Log.e("Data source tag", "Found ${it.count} images")
         while(it.moveToNext()){
             val imageId = it.getLong(id)
             val imageName = it.getString(name)
@@ -242,9 +244,11 @@ suspend fun loadImagesFromDisc():List<Images> = withContext(Dispatchers.IO){
                 imageId = imageId, imageName = imageName, imageSize = imageSize,
                 contentUri = contentUri, dateAdded = imageAdded
             )
-            imagesList.plusAssign(imageModel)
+           Log.v("Data source tag", "added image:  $imageModel")
+            imagesList+=(imageModel)
         }
         }
+    Log.v("Tag data source", "Found ${imagesList.size} images")
     return@withContext imagesList.toList()
 }
 

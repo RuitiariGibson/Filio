@@ -24,16 +24,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="13sp"
             app:dateAdded="@{audioModel.dateAdded}"
             app:layout_constraintBottom_toTopOf="@+id/horizontalGuide"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Mon,Aug 31" />
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="8dp"
             android:foregroundGravity="center"
             app:cardCornerRadius="5dp"
@@ -47,9 +46,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:foregroundGravity="center"
-                android:scaleType="centerInside"
-                app:fileUri="@{audioModel.uri}"
-                app:loadFileThumbnail="@{audioModel.thumbnail}"
+                android:scaleType="centerCrop"
+                app:fileBitmap="@{audioModel.thumbnail}"
+                app:loadThumbnail="@{audioModel.uri}"
                 tools:src="@drawable/audio_folder_icon" />
         </com.google.android.material.card.MaterialCardView>
 
@@ -74,7 +73,7 @@
             android:layout_marginTop="10dp"
             android:text="@{audioModel.name}"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="15sp"
             app:layout_constraintLeft_toRightOf="@id/verticalGuide"
             app:layout_constraintTop_toBottomOf="@id/horizontalGuide"
             tools:text="Rumba Japani" />
@@ -84,8 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="13sp"
             app:formatSizeToString="@{audioModel.size}"
             app:layout_constraintLeft_toRightOf="@id/verticalGuide"
             app:layout_constraintTop_toBottomOf="@id/audio_name"

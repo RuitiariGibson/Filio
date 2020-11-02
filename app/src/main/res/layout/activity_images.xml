@@ -12,7 +12,6 @@
             name="activity"
             type="androidx.appcompat.app.AppCompatActivity" />
 
-
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,7 +46,6 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/images_item_layout"
             android:layout_below="@id/receiver_appbar"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </layout>

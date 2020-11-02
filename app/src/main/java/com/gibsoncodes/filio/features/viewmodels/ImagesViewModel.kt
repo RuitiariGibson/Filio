@@ -2,6 +2,7 @@ package com.gibsoncodes.filio.features.viewmodels
 
 import android.app.Application
 import android.provider.MediaStore
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,12 +20,10 @@ private val imagesList by lazy {
 }
     val imagesLiveData:LiveData<List<ImagesModel>> get() = imagesList
    private  fun loadImages(){
-       val list = mutableListOf<ImagesModel>()
         viewModelScope.launch {
             val repoList=imagesProperties.invoke()
-            list.addAll(repoList.map { it.toImagesModel() })
-            imagesList
-                .postValue(list)
+            imagesList.postValue(repoList.map{it.toImagesModel()})
+            Log.e("images view model tag: ", "total number of images is ${repoList.size}")
             if (contentObserver == null) {
                 contentObserver =
                     getApplication<Application>().contentResolver.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI

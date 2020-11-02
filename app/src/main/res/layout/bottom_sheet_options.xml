@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.appcompat.widget.AppCompatTextView
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:textColor="@android:color/black"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_margin="5dp"
+    tools:text="Test pic name 1"
+    android:id="@+id/fileName"
+    android:textSize="20sp"
+    android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="5dp"
+        tools:text="added on 28/10/2020"
+        android:id="@+id/dateAdded"
+        app:layout_constraintTop_toBottomOf="@id/fileName"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/black"
+        tools:text="size: 29mb"
+        android:id="@+id/size"
+        app:layout_constraintTop_toBottomOf="@id/dateAdded"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="150dp"
+        android:layout_margin="10dp"
+        tools:text="Delete"
+        app:elevation="4dp"
+        android:text="@string/delete"
+
+        android:id="@+id/delete"
+        app:backgroundTint="@color/secondaryTextColor"
+        app:layout_constraintTop_toBottomOf="@id/size"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="150dp"
+        android:layout_margin="10dp"
+        app:elevation="4dp"
+        android:id="@+id/viewBtn"
+        android:text="@string/view"
+        android:layout_marginStart="20dp"
+        app:backgroundTint="@color/secondaryTextColor"
+        app:layout_constraintTop_toBottomOf="@id/size"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

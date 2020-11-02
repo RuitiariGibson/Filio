@@ -13,16 +13,20 @@ class ImagesAdapter:GenericAdapter<ImagesModel,
     companion object{
         val diffUtil = object:DiffUtil.ItemCallback<ImagesModel>(){
             override fun areContentsTheSame(oldItem: ImagesModel, newItem: ImagesModel): Boolean {
-                return oldItem.name == newItem.name
+                return oldItem == newItem
             }
 
             override fun areItemsTheSame(oldItem: ImagesModel, newItem: ImagesModel): Boolean {
-                return oldItem == newItem
+                return oldItem.uri == newItem.uri
             }
         }
     }
     init {
         setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
     override fun bind(binding: ImagesItemLayoutBinding, item: ImagesModel) {
         binding.imagesModel = item

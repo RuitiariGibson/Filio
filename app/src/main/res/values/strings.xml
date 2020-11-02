@@ -32,5 +32,9 @@
     <string name="your_storage">Your storage</string>
     <string name="recent_files">Recent files</string>
     <string name="your_storage_stats">Your storage stats</string>
+    <string name="delete">delete</string>
+    <string name="view">view</string>
+    <string name="bottom_options_frag_tag">BottomOptionsFragment</string>
+    <string name="view_with">\"view with: \"</string>
 
 </resources>

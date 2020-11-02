@@ -1,6 +1,7 @@
 package com.gibsoncodes.filio.binding
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.format.Formatter
@@ -9,25 +10,76 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.commons.CircleProgressBar
 import com.gibsoncodes.filio.commons.loadThumbnail
 import com.gibsoncodes.filio.models.CategoriesModel
 import com.gibsoncodes.filio.models.RecentFilesModel
 import com.gibsoncodes.filio.models.StorageStatisticsModel
+import com.google.android.material.drawable.DrawableUtils
 import com.google.android.material.imageview.ShapeableImageView
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.round
 
 @BindingAdapter("loadThumbnail","fileBitmap")
-fun AppCompatImageView.loadFileThumbnail(uri:Uri, bitmap:Bitmap?){
+fun ShapeableImageView.loadFileThumbnail(uri:Uri, fileBitmap: Bitmap?){
+        Glide.with(this.context)
+            .load(uri)
+            .centerCrop()
+            .error(fileBitmap?.toDrawable(this.resources))
+            .into(this)
+}
+@BindingAdapter("loadFile")
+fun ShapeableImageView.loadFile(uri:Uri){
     Glide.with(this.context)
-        .load(uri) // try to see if the uri can point us to the file icon
-        .error(bitmap?.toDrawable(this.resources)) // fall back to the default file icon
+        .load(uri)
+        .centerCrop()
+        .override(200, 200)
         .into(this)
+}
+@BindingAdapter("formatSizeToString")
+fun AppCompatTextView.formatSizeToString(size:Int?){
+    size?.let{
+       val formattedSize= Formatter.formatFileSize(this.context, size.toLong())
+        this.text =formattedSize
+    }
+}
+@BindingAdapter("dateModified")
+fun AppCompatTextView.dateModified(date:Date?) {
+    date?.let {
+        val timeStamp = (date.time * 1000)
+        // dd.MM.yyyy
+        SimpleDateFormat("dd.MM.yyyy", Locale.US).format(timeStamp)
+            .let { stringDate ->
+                this.text = stringDate
+            }
 
+    }
+}
+@BindingAdapter("dateAdded")
+fun AppCompatTextView.dateAddedFormatter(date:Date?){
+    date?.let{
+        val pattern = "dd.MM.yyyy"
+        val timeStamp =(date.time*1000)
+        SimpleDateFormat(pattern, Locale.US).format(timeStamp)
+            .let{
+                stringDate->
+                this.text = stringDate
+
+
+            }
+    }
 }
 @BindingAdapter("loadCategoryItems")
 fun AppCompatTextView.loadCategoryItems(fileSize:Int?){
@@ -89,6 +141,7 @@ fun ShapeableImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
     Glide.with(this.context)
         .load(uri)
         .centerCrop()
+        .override(96, 96)
         .error(thumbnail)
         .into(this)
 }

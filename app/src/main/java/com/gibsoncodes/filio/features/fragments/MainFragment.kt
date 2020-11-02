@@ -11,6 +11,7 @@ import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.adapters.CategoriesAdapter
 import com.gibsoncodes.filio.adapters.RecentFilesAdapter
 import com.gibsoncodes.filio.commons.RvItemTouchHelper
+import com.gibsoncodes.filio.commons.ZoomEffectRv
 import com.gibsoncodes.filio.commons.fadeIn
 import com.gibsoncodes.filio.databinding.FragmentMainBinding
 import com.gibsoncodes.filio.features.activities.AudioActivity
@@ -74,7 +75,9 @@ class MainFragment : BaseFragments() {
                 }))
             }
             this.recentFilesRv.apply{
-                this.layoutManager = LinearLayoutManager(requireContext()).also{it.orientation=LinearLayoutManager.HORIZONTAL}
+                val layoutManager = ZoomEffectRv(requireContext())
+                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                this.layoutManager =layoutManager
             }
             adapter =categoriesAdapter
             this.recentAdapter = recentFilesAdapter

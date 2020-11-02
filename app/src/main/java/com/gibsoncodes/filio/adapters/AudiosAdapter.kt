@@ -12,6 +12,10 @@ class AudiosAdapter:GenericAdapter<AudiosModel, AudiosItemLayoutBinding>(diffUti
     init{
         setHasStableIds(true)
     }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 companion object{
     val diffUtil = object:DiffUtil.ItemCallback<AudiosModel>(){
 

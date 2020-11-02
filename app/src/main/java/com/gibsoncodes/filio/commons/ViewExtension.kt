@@ -31,8 +31,8 @@ import com.gibsoncodes.filio.R
  * The file icons are less than 1mb thus there is no
  * need to downscale the images
  */
- fun Context.loadThumbnail(extension:String): Bitmap {
-    val bitmap: Bitmap?
+ fun Context.loadThumbnail(extension:String): Bitmap? {
+    var bitmap: Bitmap?=null
     when(extension){
         "docx"->{
             bitmap = BitmapFactory.decodeResource(
