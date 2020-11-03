@@ -12,10 +12,10 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     tools:text="Test pic name 1"
     android:id="@+id/fileName"
-    android:textSize="20sp"
+    android:textSize="16sp"
     android:layout_height="wrap_content"/>
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
@@ -23,23 +23,23 @@
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         tools:text="added on 28/10/2020"
         android:id="@+id/dateAdded"
         app:layout_constraintTop_toBottomOf="@id/fileName"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_height="wrap_content"/>
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:textColor="@android:color/black"
         tools:text="size: 29mb"
         android:id="@+id/size"
         app:layout_constraintTop_toBottomOf="@id/dateAdded"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:layout_height="wrap_content"/>
     <com.google.android.material.button.MaterialButton
         android:layout_width="150dp"

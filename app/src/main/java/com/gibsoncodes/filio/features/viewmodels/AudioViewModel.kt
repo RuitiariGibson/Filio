@@ -24,7 +24,37 @@ private val properties:AudiosProperties):BaseViewModel(application) {
         MutableLiveData<List<AudiosModel>> ()
     }
 
-
+private val _permissionNeededToDelete = MutableLiveData<IntentSender?> ()
+     val permissionNeededToDelete:LiveData<IntentSender?>  get() = _permissionNeededToDelete
+    private var model:AudiosModel ?=null
+    fun deleteAudio(audiosModel: AudiosModel){
+        viewModelScope.launch{
+            deleteAudioFunction(audiosModel)
+        }
+    }
+    fun deletePendingAudio(){
+        model?.let {
+            model = null
+            deleteAudio(it)
+        }
+    }
+    private suspend fun deleteAudioFunction(audiosModel: AudiosModel){
+        withContext(Dispatchers.IO){
+            try{
+                getApplication<Application>()
+                    .contentResolver.delete(audiosModel.uri!!,
+                    "${MediaStore.Audio.Media._ID} = ?", arrayOf(audiosModel.id.toString()))
+            }catch (ex:SecurityException){
+                if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.Q){
+                    val exception:RecoverableSecurityException = ex as? RecoverableSecurityException ?: throw ex
+                    model = audiosModel
+                    _permissionNeededToDelete.postValue(exception.userAction.actionIntent.intentSender)
+                }else{
+                    throw ex
+                }
+            }
+        }
+    }
     init {
         loadAudios()
     }

@@ -16,6 +16,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -71,13 +72,11 @@ fun AppCompatTextView.dateModified(date:Date?) {
 fun AppCompatTextView.dateAddedFormatter(date:Date?){
     date?.let{
         val pattern = "dd.MM.yyyy"
-        val timeStamp =(date.time*1000)
+        val timeStamp =(date.time * 1000)
         SimpleDateFormat(pattern, Locale.US).format(timeStamp)
             .let{
                 stringDate->
                 this.text = stringDate
-
-
             }
     }
 }
@@ -113,7 +112,9 @@ fun ShapeableImageView.loadThumbnail(mediaType:Int){
     }
     Glide.with(this.context)
         .load(thumbnail)
+        .override(Target.SIZE_ORIGINAL)
         .centerInside()
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
 
 }
@@ -141,7 +142,7 @@ fun ShapeableImageView.loadRecentFilesThumbnail(mediaType:Int, uri:Uri){
     Glide.with(this.context)
         .load(uri)
         .centerCrop()
-        .override(96, 96)
+        .override(Target.SIZE_ORIGINAL)
         .error(thumbnail)
         .into(this)
 }

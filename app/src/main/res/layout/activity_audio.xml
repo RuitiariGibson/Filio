@@ -26,7 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -36,9 +35,6 @@
                 android:backgroundTint="@android:color/white"
                 app:titleTextColor="@android:color/black" />
         </com.google.android.material.appbar.AppBarLayout>
-
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/audiosRv"
             android:layout_width="match_parent"

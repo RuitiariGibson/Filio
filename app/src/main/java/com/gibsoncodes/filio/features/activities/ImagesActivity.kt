@@ -41,12 +41,22 @@ class ImagesActivity : BaseActivity(), OptionsBottomSheetFragment.ItemClickListe
                 this.addItemDecoration(GridItemDecoration(true, convertToPixels(8), 2))
                 this.addOnItemTouchListener(RvItemTouchHelper(this@ImagesActivity, object: RvItemTouchHelper.ListenerInterface{
                     override fun onClick(view: View, position: Int) {
+                        imageModel =imagesAdapter.currentList[position]
                         supportFragmentManager.let{
-                            OptionsBottomSheetFragment.newInstance(Bundle()).apply {
-                                show(it, getString(R.string.bottom_options_frag_tag))
+                            val bundle= Bundle().apply{
+                            this.putString("name", imageModel?.name)
+                                imageModel?.dateAdded?.time?.let { it1 ->
+                                    this.putLong("dateAdded",
+                                        it1
+                                    )
+                                }
+                                imageModel?.size?.let { it1 -> this.putInt("size", it1) }
+                        }
+                            OptionsBottomSheetFragment.newInstance(bundle).apply {
+                                show(it,"Fragment options tag")
                             }
                         }
-                        imageModel =imagesAdapter.currentList[position]
+
                     }
 
                     override fun onLongClick(view: View, position: Int) {

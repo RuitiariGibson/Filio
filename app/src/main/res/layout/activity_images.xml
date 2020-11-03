@@ -30,8 +30,10 @@
                 android:layout_width="match_parent"
                 android:id="@+id/imagesToolBar"
                 app:title="Images"
+                android:background="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 app:simpleToolbarWithUpButton="@{activity}"
-                app:titleTextColor="@android:color/white"
+                app:titleTextColor="@android:color/black"
                 android:layout_height="match_parent" />
         </com.google.android.material.appbar.AppBarLayout>
 

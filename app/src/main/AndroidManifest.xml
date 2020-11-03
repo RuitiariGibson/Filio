@@ -15,10 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".features.activities.DownloadActivity"></activity>
         <activity android:name=".features.activities.VideosActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".features.activities.AudioActivity" >
 
@@ -28,7 +25,10 @@
         </activity>
         <activity android:name=".features.activities.LauncherActivity" />
         <activity android:name=".features.activities.MainActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

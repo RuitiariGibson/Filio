@@ -31,7 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:title="Videos"
-            app:titleTextColor="@android:color/white" />
+            android:background="@android:color/white"
+            android:backgroundTint="@android:color/white"
+            app:titleTextColor="@android:color/black" />
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/videosRv"

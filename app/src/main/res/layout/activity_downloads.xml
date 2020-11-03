@@ -33,9 +33,11 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            android:background="@android:color/white"
             app:simpleToolbarWithUpButton="@{activity}"
             app:title="Downloads"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@android:color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
 

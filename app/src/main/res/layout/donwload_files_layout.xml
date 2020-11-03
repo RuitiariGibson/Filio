@@ -74,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="@android:color/black"
+            android:text="@{downloadsModel.fileName}"
             android:textSize="16sp"
             app:layout_constraintLeft_toRightOf="@id/verticalGuide"
             app:layout_constraintTop_toBottomOf="@id/horizontalGuide"
