@@ -77,7 +77,7 @@ of data.
 
 Libraries used in the whole application are:
 
-  - [Jetpack](https://developer.android.com/jetpack)🚀
+  - [Jetpack](https://developer.android.com/jetpack)🚀 - set of libraries, tools and guides to help make app building quick and easy. Easy Backward Compatibability using Support Library and Architechture Component 
   - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Manage UI related data in a lifecycle conscious way 
   and act as a channel between use cases and ui
  - [Data Binding](https://developer.android.com/topic/libraries/data-binding) - support library that allows binding of UI components in  layouts to data sources,binds character details and search results to UI
@@ -91,6 +91,8 @@ Libraries used in the whole application are:
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_1.png" width=200/> 
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_3.png" width=200/>
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_4.png" width=200/>
+<img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_6.png" width-200/>
+<img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_5.png" width=200/>
 </p>
 
 ## License
