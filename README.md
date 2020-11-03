@@ -91,8 +91,8 @@ Libraries used in the whole application are:
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_1.png" width=200/> 
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_3.png" width=200/>
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_4.png" width=200/>
-<img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_6.png" width-200/>
 <img src="https://github.com/RuitiariGibson/Filio/blob/master/art/pic_5.png" width=200/>
+  
 </p>
 
 ## License
