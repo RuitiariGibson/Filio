@@ -1,8 +1,10 @@
 package com.gibsoncodes.filio.features.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.adapters.ImagesAdapter
@@ -13,9 +15,12 @@ import com.gibsoncodes.filio.databinding.ActivityImagesBinding
 import com.gibsoncodes.filio.features.fragments.OptionsBottomSheetFragment
 import com.gibsoncodes.filio.features.viewmodels.ImagesViewModel
 import com.gibsoncodes.filio.models.ImagesModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Suppress("DEPRECATION")
 class ImagesActivity : BaseActivity(), OptionsBottomSheetFragment.ItemClickListener{
+    private val DELETE_PERMISSION_REQUEST = 0x1033
     private val binding by bind<ActivityImagesBinding>(R.layout.activity_images)
     private val imagesAdapter: ImagesAdapter by lazy {
         ImagesAdapter()
@@ -52,13 +57,31 @@ class ImagesActivity : BaseActivity(), OptionsBottomSheetFragment.ItemClickListe
             adapter= imagesAdapter
     }
 
-
+viewModel.permissionNeededToDelete.observe(this, Observer {
+    intentSender->
+    intentSender?.let{
+        /**
+         * Needed for android 10+
+         */
+        startIntentSenderForResult(intentSender,
+        DELETE_PERMISSION_REQUEST,null,0,0,0,null)
+    }
+})
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+       if (resultCode == Activity.RESULT_OK && requestCode == DELETE_PERMISSION_REQUEST){
+           viewModel.deletePendingImage()
+       }
+    }
     override fun onItemClick(item: String) {
         when(item){
             "delete"->{
             // perform delete action
+                imageModel?.let{
+                      deleteImage(it)
+                }
             }
             "view"->{
                imageModel?.let{
@@ -70,5 +93,18 @@ class ImagesActivity : BaseActivity(), OptionsBottomSheetFragment.ItemClickListe
                }
             }
         }
+    }
+    private fun deleteImage(image:ImagesModel){
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.delete_dialog_title))
+            .setMessage(getString(R.string.delete_dialog_message, image.name))
+            .setPositiveButton(R.string.delete_dialog_positive_message){_,_
+            ->
+                viewModel.deleteImage(image)
+            }
+            .setNegativeButton(R.string.delete_dialog_negative){dialog,_->
+                dialog.dismiss()
+            }
+            .show()
     }
 }

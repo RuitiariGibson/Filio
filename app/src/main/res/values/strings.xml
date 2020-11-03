@@ -36,5 +36,8 @@
     <string name="view">view</string>
     <string name="bottom_options_frag_tag">BottomOptionsFragment</string>
     <string name="view_with">\"view with: \"</string>
-
+    <string name="delete_dialog_title">Delete</string>
+    <string name="delete_dialog_message">Delete %1$s?</string>
+    <string name="delete_dialog_positive_message">Delete</string>
+    <string name="delete_dialog_negative">Cancel</string>
 </resources>
