@@ -62,13 +62,18 @@ private val imagesList by lazy {
                     "${MediaStore.Images.Media.TITLE} = ?", arrayOf(image.name)
                 )
             } catch (ex: SecurityException) {
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){
-                    val recoverableSecurityException:RecoverableSecurityException
-                    = ex as? RecoverableSecurityException ?: throw ex
+                /**
+                 * For android 10+ we cannot modify the user's storage directly so we need
+                 * an intent sender to send the request needed so that the user can actually grant us permission
+                 */
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    val recoverableSecurityException: RecoverableSecurityException =
+                        ex as? RecoverableSecurityException ?: throw ex
                     pendingImageToBeDeleted = image
                     _permissionNeededToDelete.postValue(
-                        recoverableSecurityException.userAction.actionIntent.intentSender)
-                }else{
+                        recoverableSecurityException.userAction.actionIntent.intentSender
+                    )
+                } else {
                     throw ex
                 }
             }

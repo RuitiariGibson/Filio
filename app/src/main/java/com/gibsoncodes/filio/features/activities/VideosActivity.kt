@@ -98,14 +98,19 @@ private var videosModel:VideosModel?=null
               }
           }
           "view"->{
-              videosModel?.let{
+              videosModel?.let {
                   val intent = Intent(Intent.ACTION_VIEW, it.uri)
                   val chooser = Intent.createChooser(intent, getString(R.string.view_with))
-                  if (chooser.resolveActivity(packageManager)!=null){
+                  if (chooser.resolveActivity(packageManager) != null) {
                       startActivity(chooser)
                   }
               }
           }
       }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Intent(this@VideosActivity, MainActivity::class.java)
     }
 }

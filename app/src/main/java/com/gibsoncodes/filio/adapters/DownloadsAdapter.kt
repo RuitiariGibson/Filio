@@ -26,9 +26,15 @@ class DownloadsAdapter:GenericAdapter<DownloadsModel, DonwloadFilesLayoutBinding
             }
         }
     }
-    init{
+
+    init {
         setHasStableIds(true)
     }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun createBinding(parent: ViewGroup): DonwloadFilesLayoutBinding {
 
         return DataBindingUtil.inflate(
@@ -38,5 +44,6 @@ class DownloadsAdapter:GenericAdapter<DownloadsModel, DonwloadFilesLayoutBinding
     }
 
     override fun bind(binding: DonwloadFilesLayoutBinding, item: DownloadsModel) {
-        binding.downloadsModel = item    }
+        binding.downloadsModel = item
+    }
 }

@@ -97,11 +97,16 @@ class AudioActivity : BaseActivity(), OptionsBottomSheetFragment.ItemClickListen
                     }
                 }
             }
-            "delete"->{
-                audioModel?.let{
+            "delete" -> {
+                audioModel?.let {
                     deleteAudio(it)
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Intent(this@AudioActivity, MainActivity::class.java)
     }
 }

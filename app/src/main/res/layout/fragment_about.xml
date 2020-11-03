@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.fragments.AboutFragment">
-<include layout="@layout/doll_layout"/>
+
+    <include layout="@layout/doll_layout"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:text="@string/app_name"

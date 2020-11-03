@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gibsoncodes.filio.R
 import com.gibsoncodes.filio.adapters.CategoriesAdapter
@@ -25,15 +26,19 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : BaseFragments() {
-    private  val categoriesAdapter by lazy { CategoriesAdapter() }
-    private val storageStatisticsViewModel:StorageStatisticsViewModel by viewModel()
-    private val fileSizeViewMode:FileSizesViewModel by viewModel()
-    private val recentFilesAdapter by lazy{
+    /**
+     * TODO: find a suitable fragment-activity transition
+     * Explode transition is laggy due to the recycler view items
+     */
+
+    private val categoriesAdapter by lazy { CategoriesAdapter() }
+    private val storageStatisticsViewModel: StorageStatisticsViewModel by viewModel()
+    private val fileSizeViewMode: FileSizesViewModel by viewModel()
+    private val recentFilesAdapter by lazy {
         RecentFilesAdapter()
     }
-    private lateinit var binding:FragmentMainBinding
-    private val recentFilesViewModel:RecentFilesViewModel by viewModel()
-
+    private lateinit var binding: FragmentMainBinding
+    private val recentFilesViewModel: RecentFilesViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,8 +88,10 @@ class MainFragment : BaseFragments() {
             this.recentAdapter = recentFilesAdapter
 
         }
+        (activity as? AppCompatActivity)?.setSupportActionBar(binding.myStorage)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

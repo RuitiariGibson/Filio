@@ -2,6 +2,7 @@ package com.gibsoncodes.filio
 
 import android.app.Application
 import com.gibsoncodes.di.modules.recentFilesModule
+import com.gibsoncodes.filio.commons.sharedPrefModule
 import com.gibsoncodes.filio.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -16,12 +17,18 @@ class App:Application() {
                 com.gibsoncodes.di.modules.mediaFilesRepoModule,
                 com.gibsoncodes.di.modules.documentFilesModule,
                 com.gibsoncodes.di.modules.storageStatisticsModule,
-                com.gibsoncodes.di.modules.sourceModule, imagesViewModelModule, videosViewModelModule,
-           audiosViewModelModule,
-                com.gibsoncodes.di.modules.storageStatisticsModule, downloadViewModelModule,
-                storageStatisticsViewModelModule ,
-                com.gibsoncodes.di.modules.totalFileSizesModule, fileSizeViewModelModule,
-                recentFilesModule, recentFilesViewModel
+                com.gibsoncodes.di.modules.sourceModule,
+                imagesViewModelModule,
+                videosViewModelModule,
+                audiosViewModelModule,
+                com.gibsoncodes.di.modules.storageStatisticsModule,
+                downloadViewModelModule,
+                storageStatisticsViewModelModule,
+                com.gibsoncodes.di.modules.totalFileSizesModule,
+                fileSizeViewModelModule,
+                recentFilesModule,
+                recentFilesViewModel,
+                sharedPrefModule
             ))
         }
     }

@@ -31,7 +31,6 @@ class ImagesActivity : BaseActivity(), OptionsBottomSheetFragment.ItemClickListe
         super.onCreate(savedInstanceState)
         binding.apply {
             lifecycleOwner = this@ImagesActivity
-
             imagesViewModel = viewModel
             activity = this@ImagesActivity
             imagesRecyclerView.apply {
@@ -94,27 +93,34 @@ viewModel.permissionNeededToDelete.observe(this, Observer {
                 }
             }
             "view"->{
-               imageModel?.let{
-                   val intent = Intent(Intent.ACTION_VIEW, it.uri)
-                   val chooser = Intent.createChooser(intent, getString(R.string.view_with))
-                   if (chooser.resolveActivity(packageManager)!=null){
-                       startActivity(chooser)
-                   }
-               }
+                imageModel?.let {
+                    val intent = Intent(Intent.ACTION_VIEW, it.uri)
+                    val chooser = Intent.createChooser(intent, getString(R.string.view_with))
+                    if (chooser.resolveActivity(packageManager) != null) {
+                        startActivity(chooser)
+                    }
+                }
             }
         }
     }
-    private fun deleteImage(image:ImagesModel){
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Intent(this@ImagesActivity, MainActivity::class.java)
+    }
+
+    private fun deleteImage(image: ImagesModel) {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.delete_dialog_title))
             .setMessage(getString(R.string.delete_dialog_message, image.name))
-            .setPositiveButton(R.string.delete_dialog_positive_message){_,_
-            ->
+            .setPositiveButton(R.string.delete_dialog_positive_message) { _, _
+                ->
                 viewModel.deleteImage(image)
             }
-            .setNegativeButton(R.string.delete_dialog_negative){dialog,_->
+            .setNegativeButton(R.string.delete_dialog_negative) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
+
 }

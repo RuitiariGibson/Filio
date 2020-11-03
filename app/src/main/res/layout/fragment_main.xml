@@ -30,19 +30,16 @@
     android:background="@color/white_12"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="5dp"
         android:id="@+id/my_storage"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:visibility="gone"
-        tools:visibility="visible"
-       android:layout_marginTop="15dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        android:text="@string/my_storage"
-        tools:text="My storage" />
+        android:background="@android:color/white"
+        android:elevation="8dp"
+        app:title="@string/my_storage" />
+
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

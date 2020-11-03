@@ -14,17 +14,13 @@
         android:layout_height="match_parent"
         android:background="@color/white_12"
         tools:context=".activities.fragments.FirstFragment">
-
-<androidx.appcompat.widget.AppCompatTextView
-    android:layout_width="wrap_content"
-    android:layout_marginTop="20dp"
-    android:textSize="16sp"
-    android:layout_height="wrap_content"
-    android:textColor="@color/colorPrimary"
+<com.google.android.material.appbar.MaterialToolbar
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
     android:id="@+id/storageStats"
-    android:layout_centerHorizontal="true"
-    android:text="@string/your_storage_stats"/>
-
+    android:background="@android:color/white"
+    android:elevation="8dp"
+    app:title="@string/your_storage_stats" />
         <View
             android:id="@+id/rod"
             android:layout_width="45dp"

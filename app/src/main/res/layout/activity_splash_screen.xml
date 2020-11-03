@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".features.activities.LauncherActivity">
-    <FrameLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".features.activities.LauncherActivity">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/firstText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="130dp"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/firstText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="130dp"
             android:drawableEnd="@drawable/folder"
             android:drawablePadding="10dp"
             android:text="@string/file"
@@ -36,7 +39,7 @@
             android:layout_marginStart="130dp"
             android:layout_marginTop="170dp"
             android:text="@string/manager"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="35sp"
             tools:text="Manager" />
     </FrameLayout>
@@ -120,7 +123,7 @@
         android:layout_marginBottom="24dp"
         android:text="@string/manage_files"
         android:id="@+id/manageYourFilesText"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:visibility="gone"
         tools:visibility="visible"
@@ -141,7 +144,7 @@
         android:id="@+id/appSellText"
         tools:visibility="visible"
         android:text="@string/app_sell"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="15sp"
         tools:text="It's a simple option that doesn't have a whole lot of flair. That is extremely preferable" />
 
@@ -153,16 +156,7 @@
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="63dp"
-            android:layout_height="63dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="10dp"
-            android:clickable="false"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:id="@+id/glowingImageView"
-            android:src="@drawable/forth_circle" />
+
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="50dp"
@@ -170,7 +164,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="60dp"
-            android:backgroundTint="@color/forthCircleColor"
+            android:backgroundTint="@color/secondaryTextColor"
             android:shadowColor="@android:color/white"
             android:shadowDx="5"
             android:shadowDy="5"
@@ -190,7 +184,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginBottom="35dp"
         android:text="@string/lets"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="14sp"
         android:textStyle="bold"
         tools:text="Let's make the" />
@@ -210,5 +204,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         tools:text="magic happen" />
-</RelativeLayout>
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

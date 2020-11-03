@@ -7,25 +7,29 @@ import android.net.Uri
 import android.os.Handler
 import androidx.lifecycle.AndroidViewModel
 
+/**
+ * Since the view models share the same features i.e registration and un-registration of [ContentObservers]
+ * we use this abstraction to easien the work
+ */
 abstract class BaseViewModel(application:Application):AndroidViewModel(application) {
     var contentObserver:ContentObserver?=null
 @Suppress("DEPRECATION")
-    fun ContentResolver.registerContentObserver(uri:Uri,
-    onChange:(Boolean)->Unit):ContentObserver{
-        val observer =object: ContentObserver(Handler()){
-            override fun onChange(selfChange: Boolean) {
-                super.onChange(selfChange)
-                 onChange(selfChange)
-            }
+fun ContentResolver.registerContentObserver(uri:Uri,
+                                            onChange:(Boolean)->Unit):ContentObserver{
+    val observer =object: ContentObserver(Handler()){
+        override fun onChange(selfChange: Boolean) {
+            super.onChange(selfChange)
+            onChange(selfChange)
         }
-        registerContentObserver(uri, true, observer)
-        return observer
     }
+    registerContentObserver(uri, true, observer)
+    return observer
+}
 
     override fun onCleared() {
         super.onCleared()
-       contentObserver?.let{
-           getApplication<Application>().contentResolver.unregisterContentObserver(it)
-       }
+        contentObserver?.let{
+            getApplication<Application>().contentResolver.unregisterContentObserver(it)
+        }
     }
 }

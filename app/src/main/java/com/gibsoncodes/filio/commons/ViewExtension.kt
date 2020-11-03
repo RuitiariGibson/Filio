@@ -1,6 +1,5 @@
 package com.gibsoncodes.filio.commons
 
-import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,20 +7,40 @@ import android.os.Handler
 import android.util.TypedValue
 import android.view.View
 import android.view.animation.AlphaAnimation
+import androidx.appcompat.widget.AppCompatImageView
 import com.gibsoncodes.filio.R
 
- fun Context.convertToPixels(dp:Int):Int{
+fun Context.convertToPixels(dp: Int): Int {
     val resources = resources
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-    dp.toFloat(),resources.displayMetrics).toInt()
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp.toFloat(), resources.displayMetrics
+    ).toInt()
 }
- fun View.fadeIn(halfTime:Long =0L, fadeDuration:Long){
-    this.visibility= View.INVISIBLE
-    Handler().postDelayed({this.startAnimation(AlphaAnimation(0F,1F).apply{
-        duration=fadeDuration
-        fillAfter=true
-    })
-        this.visibility= View.VISIBLE}, halfTime)
+
+fun AppCompatImageView.animateImage() {
+    this.visibility = View.INVISIBLE
+    Handler().postDelayed({
+        this.animate()
+            .alpha(1f)
+            .setDuration(100L)
+            .withEndAction {
+                this.visibility = View.VISIBLE
+                animateImage()
+            }
+    }, 2 * 100L)
+
+}
+
+fun View.fadeIn(halfTime: Long = 0L, fadeDuration: Long) {
+    this.visibility = View.INVISIBLE
+    Handler().postDelayed({
+        this.startAnimation(AlphaAnimation(0F, 1F).apply {
+            duration = fadeDuration
+            fillAfter = true
+        })
+        this.visibility = View.VISIBLE
+    }, halfTime)
 
 
 }

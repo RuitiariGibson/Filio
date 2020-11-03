@@ -13,9 +13,7 @@ import com.gibsoncodes.filio.databinding.ActivityDownloadsBinding
 import com.gibsoncodes.filio.features.fragments.OptionsBottomSheetFragment
 import com.gibsoncodes.filio.features.viewmodels.DownloadsViewModel
 import com.gibsoncodes.filio.models.DownloadsModel
-import com.gibsoncodes.filio.models.VideosModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.bottom_sheet_options.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Suppress("DEPRECATION")
@@ -94,14 +92,19 @@ class DownloadActivity : BaseActivity() , OptionsBottomSheetFragment.ItemClickLi
                 }
             }
             "view"->{
-                pendingModel?.let{
+                pendingModel?.let {
                     val intent = Intent(Intent.ACTION_VIEW, it.uri)
                     val chooser = Intent.createChooser(intent, getString(R.string.view_with))
-                    if (chooser.resolveActivity(packageManager)!=null){
+                    if (chooser.resolveActivity(packageManager) != null) {
                         startActivity(chooser)
                     }
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Intent(this@DownloadActivity, MainActivity::class.java)
     }
 }
